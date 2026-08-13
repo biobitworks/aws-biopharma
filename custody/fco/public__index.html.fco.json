@@ -2,12 +2,12 @@
   "artifact": "public/index.html",
   "claim_ceiling": "DEMO_UI",
   "disclosure": "PUBLIC",
-  "fco_id": "fco:2e0c9efaa08dde4dbc7395061218a2a17176897b7b1bc31d5621ab5354eefd8a",
+  "fco_id": "fco:a2c5347f29e36f1648a339e7f043fcafca873729ede0d8a9d30c1a68b8758f22",
   "fco_type": "dashboard_ui",
   "license": "Apache-2.0",
   "parents": [],
-  "payload_bytes": 2432,
-  "payload_sha256": "sha256:3e7735cb21809b9d8c49ad868ff2ecf52ab7ca4465fb6f124dce3ac413d1947a",
+  "payload_bytes": 2593,
+  "payload_sha256": "sha256:e509c1d434a3641ef8f01dc0926be00e131115ce434470b1f9324b1aa17a7c5d",
   "schema": "aws-biopharma.fco.v1",
   "signature_scope": "release_root"
 }

@@ -2,15 +2,16 @@
   "artifact": "data/dashboard_snapshot.json",
   "claim_ceiling": "DEMO_DATA",
   "disclosure": "PUBLIC",
-  "fco_id": "fco:d18e459acfc22aeea844befabfa5ee7b5932df9dfe641633e6fd158585323dfa",
+  "fco_id": "fco:bc35487ea7f80ada9b412d56d4c7f36ef3fbee461f09356b4cb754822aabf60d",
   "fco_type": "dashboard_data",
   "license": "SOURCE_TERMS_APPLY",
   "parents": [
     "fco:e3e955ac9554ce3ca336fff86b03bfeeedea0c9f6537623a3f56d27396cf1217",
-    "fco:bde240184dca0ac5476879b33bb903b01fdca7fded14025f76f02f9edc512e76"
+    "fco:bde240184dca0ac5476879b33bb903b01fdca7fded14025f76f02f9edc512e76",
+    "fco:6ad3d8877bb683c17a86e5ea1611a4a0492cde01c913ec7404cf248bdefe7fca"
   ],
-  "payload_bytes": 27638,
-  "payload_sha256": "sha256:734d15b3adb94d01e5250e4445b07be45f3e6ea6e39e649bbc55ac7d0e6d340c",
+  "payload_bytes": 92996,
+  "payload_sha256": "sha256:c8667347bec59a6cc3526c012396d29a1fa86fb6aea438d2d9daf6a6265ac1f7",
   "schema": "aws-biopharma.fco.v1",
   "signature_scope": "release_root"
 }

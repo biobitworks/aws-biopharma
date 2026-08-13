@@ -2,12 +2,12 @@
   "artifact": "HACKDAY_STATUS.md",
   "claim_ceiling": "PROJECT_STATUS",
   "disclosure": "PUBLIC",
-  "fco_id": "fco:6d8ee9078a45476ab1b095ea92bea41f5c4f594bc57967acd2bbb64183c960cf",
+  "fco_id": "fco:2cd7610b0c451f0bdbb5311ea72763fa17a3292c34edeb4acfc607ae0a33fc8b",
   "fco_type": "project_status",
   "license": "Apache-2.0",
   "parents": [],
-  "payload_bytes": 4599,
-  "payload_sha256": "sha256:6dbe4a97b1fd1930a0c4c4cb261ded704ca1e01142ca9c325a4f664bc7ac1844",
+  "payload_bytes": 4911,
+  "payload_sha256": "sha256:327390b2dfab273c183033478cf9298a9f7663b4e8f1215ce8810fd76475d5a7",
   "schema": "aws-biopharma.fco.v1",
   "signature_scope": "release_root"
 }

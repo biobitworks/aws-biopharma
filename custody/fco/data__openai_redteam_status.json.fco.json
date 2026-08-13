@@ -1,0 +1,13 @@
+{
+  "artifact": "data/openai_redteam_status.json",
+  "claim_ceiling": "PROJECT_STATUS",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:6ad3d8877bb683c17a86e5ea1611a4a0492cde01c913ec7404cf248bdefe7fca",
+  "fco_type": "redteam_receipt",
+  "license": "SOURCE_TERMS_APPLY",
+  "parents": [],
+  "payload_bytes": 61689,
+  "payload_sha256": "sha256:15d5fb74a71183844fa6f3f229dd5d29aa26e6e97d165e510df2c61ca60cfe61",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

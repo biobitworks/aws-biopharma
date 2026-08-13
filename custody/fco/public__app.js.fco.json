@@ -2,12 +2,12 @@
   "artifact": "public/app.js",
   "claim_ceiling": "DEMO_UI",
   "disclosure": "PUBLIC",
-  "fco_id": "fco:6158f4faaa5cfee1859dc9ad2376c505b28a84a1da5c6dccf6184736fa220f66",
+  "fco_id": "fco:63a5db80e58edb8d53ea340fee5c9b85d77b73046a8d6de1cba1963cf10c0d5b",
   "fco_type": "dashboard_ui",
   "license": "Apache-2.0",
   "parents": [],
-  "payload_bytes": 11934,
-  "payload_sha256": "sha256:75b6a911cfec2e8018396c8cfd8e9d02fd60227c0bbf6740372ed164ec5eb76c",
+  "payload_bytes": 14112,
+  "payload_sha256": "sha256:aff497343335266a29397f7419e8bf5fdbaacf2e8250204ae5207d7dde2aa285",
   "schema": "aws-biopharma.fco.v1",
   "signature_scope": "release_root"
 }
