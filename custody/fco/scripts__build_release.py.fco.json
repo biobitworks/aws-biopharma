@@ -2,12 +2,12 @@
   "artifact": "scripts/build_release.py",
   "claim_ceiling": "CUSTODY_RECEIPT",
   "disclosure": "PUBLIC",
-  "fco_id": "fco:7e8ae0d4fd2452a460b1291c3d102fceaf94bd2d367b6373be34d872615378c8",
+  "fco_id": "fco:b5e6af65d3ccd70af86ae48b1d10fe6ac0042addfc7afb78227ac0f46ff7525b",
   "fco_type": "release_tool",
   "license": "Apache-2.0",
   "parents": [],
-  "payload_bytes": 11119,
-  "payload_sha256": "sha256:b0c41e19606da6b0f479a46e710c5695cc7ddff0e1ff24d2f0ef2bc68fe65655",
+  "payload_bytes": 8836,
+  "payload_sha256": "sha256:c22c286e92a41084eff7b57e21a685e2e938c622ba60ff19d92282ca3cf6acde",
   "schema": "aws-biopharma.fco.v1",
   "signature_scope": "release_root"
 }

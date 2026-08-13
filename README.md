@@ -6,7 +6,7 @@ Local working folder:
 /Users/byron/projects/active/aws-biopharma
 ```
 
-This project is the AWS Biopharma Hack Day workspace. It is separate from BioCustody, Bio-Delta-G, and StateShift.
+This project is the AWS Biopharma Hack Day workspace.
 
 ## Current Setup
 
@@ -57,9 +57,8 @@ http://127.0.0.1:8765
 
 - No AWS resources are created by this scaffold.
 - No paid APIs are called by `scripts/pull_data.py`.
-- Do not make BioCustody, Bio-Delta-G, or StateShift claims from this dashboard
-  beyond explicitly imported source artifacts and their documented claim
-  ceiling.
+- Do not make claims beyond explicitly imported source artifacts and their
+  documented claim ceiling.
 - Source code is Apache 2.0. Data, provider outputs, API responses,
   credentials, and evidence records are not relicensed by this repo and remain
   governed by source/provider terms.
@@ -101,16 +100,6 @@ Public release custody files:
 The private signing key stays local in `.custody-private/signing-key.pem` and is
 ignored by Git.
 
-## BioCustody/FTO Ledger Import
-
-The teammate ledger package should be copied under `biocustody-ledger/`. The
-expected files are listed in `custody/required-ledger-artifacts.json` and
-documented in `docs/BIOCUSTODY_LEDGER_IMPORT_REQUIREMENTS.md`.
-
-When any expected file is present, `npm run build:release` records its SHA-256 in
-`custody/ledger-artifact-status.json`, creates an FCO leaf, includes it in the
-Merkle release root, and signs that root. `npm run verify:release` fails if a
-present ledger file is not hashed and included.
 
 ## Convoke
 

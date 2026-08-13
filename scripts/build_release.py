@@ -4,6 +4,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import shutil
 import subprocess
 from pathlib import Path
 from typing import Iterable
@@ -18,14 +19,11 @@ PUBLIC_KEY = CUSTODY / "public-key.pem"
 MANIFEST = CUSTODY / "release-manifest.json"
 ROOT_TXT = CUSTODY / "release-root.txt"
 SIG = CUSTODY / "release-root.sig"
-LEDGER_REQUIREMENTS = CUSTODY / "required-ledger-artifacts.json"
-LEDGER_STATUS = CUSTODY / "ledger-artifact-status.json"
-LEDGER_ROOT = ROOT / "biocustody-ledger"
 
 ARTIFACTS = [
+    ("AGENTS.md", "project_governance_artifact", "PROJECT_POLICY", "PUBLIC", "Apache-2.0"),
     ("README.md", "project_readme", "PROJECT_OVERVIEW", "PUBLIC", "Apache-2.0"),
     ("DATA_POLICY.md", "project_governance_artifact", "PROJECT_POLICY", "PUBLIC", "Apache-2.0"),
-    ("docs/BIOCUSTODY_LEDGER_IMPORT_REQUIREMENTS.md", "project_governance_artifact", "PROJECT_POLICY", "PUBLIC", "Apache-2.0"),
     ("docs/IP_AWARE_FCG.md", "project_governance_artifact", "PROJECT_POLICY", "PUBLIC", "Apache-2.0"),
     ("docs/TEAM_DATABASE_BUILD_PROMPT.md", "project_governance_artifact", "PROJECT_POLICY", "PUBLIC", "Apache-2.0"),
     ("docs/KEY_MANAGEMENT.md", "project_governance_artifact", "PROJECT_POLICY", "PUBLIC", "Apache-2.0"),
@@ -38,8 +36,6 @@ ARTIFACTS = [
     ("scripts/build_release.py", "release_tool", "CUSTODY_RECEIPT", "PUBLIC", "Apache-2.0"),
     ("scripts/verify_release.py", "release_tool", "CUSTODY_RECEIPT", "PUBLIC", "Apache-2.0"),
     ("custody/verify-release.py", "release_tool", "CUSTODY_RECEIPT", "PUBLIC", "Apache-2.0"),
-    ("custody/required-ledger-artifacts.json", "ledger_import_contract", "PROJECT_POLICY", "PUBLIC", "Apache-2.0"),
-    ("custody/ledger-artifact-status.json", "ledger_import_status", "PROJECT_STATUS", "PUBLIC", "Apache-2.0"),
     ("public/assets/fcg_perturbation_star_chart.svg", "figure", "REPRODUCIBLE_FIGURE", "PUBLIC", "Apache-2.0"),
     ("data/figures/fcg_perturbation_star_chart.receipt.json", "figure_receipt", "REPRODUCIBLE_FIGURE", "PUBLIC", "Apache-2.0"),
     ("data/dashboard_snapshot.json", "dashboard_data", "DEMO_DATA", "PUBLIC", "SOURCE_TERMS_APPLY"),
@@ -71,59 +67,6 @@ PARENTS = {
         "data/magicstudiobox/deliverables/FINAL_METRICS.json",
     ],
 }
-
-
-def required_ledger_paths() -> list[str]:
-    if not LEDGER_REQUIREMENTS.exists():
-        return []
-    payload = json.loads(LEDGER_REQUIREMENTS.read_text(encoding="utf-8"))
-    return [str(item["path"]) for item in payload.get("artifacts", []) if item.get("required")]
-
-
-def write_ledger_status() -> None:
-    artifacts = []
-    for relpath in required_ledger_paths():
-        path = ROOT / relpath
-        entry: dict[str, object] = {
-            "path": relpath,
-            "required": True,
-            "status": "present" if path.exists() else "pending_import",
-        }
-        if path.exists():
-            entry.update(
-                {
-                    "bytes": path.stat().st_size,
-                    "payload_sha256": f"sha256:{sha256_file(path)}",
-                }
-            )
-        artifacts.append(entry)
-
-    LEDGER_STATUS.write_text(
-        json.dumps(
-            {
-                "schema": "aws-biopharma.ledger-artifact-status.v1",
-                "policy": "Any present required ledger artifact must be included as an FCO in the signed release root.",
-                "artifacts": artifacts,
-            },
-            indent=2,
-            sort_keys=True,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
-
-
-def discovered_ledger_artifacts() -> list[tuple[str, str, str, str, str]]:
-    if not LEDGER_ROOT.exists():
-        return []
-    records = []
-    for path in sorted(LEDGER_ROOT.rglob("*")):
-        if path.is_dir() or path.name == ".DS_Store":
-            continue
-        relpath = str(path.relative_to(ROOT))
-        claim = "CLEARANCE_SEARCH_RECORD" if "fto" in relpath.lower() or "registry" in relpath.lower() else "COMMITTED_EVIDENCE_LEDGER"
-        records.append((relpath, "biocustody_ledger_artifact", claim, "PUBLIC", "SOURCE_TERMS_APPLY"))
-    return records
 
 
 def canonical_json(value: object) -> bytes:
@@ -186,16 +129,15 @@ def sign_root() -> None:
 
 def main() -> int:
     CUSTODY.mkdir(parents=True, exist_ok=True)
+    if FCO_DIR.exists():
+        shutil.rmtree(FCO_DIR)
     FCO_DIR.mkdir(parents=True, exist_ok=True)
-    write_ledger_status()
     ensure_keypair()
 
     path_to_fco_id: dict[str, str] = {}
     pending_records: list[tuple[str, dict[str, object]]] = []
 
-    release_artifacts = [*ARTIFACTS, *discovered_ledger_artifacts()]
-
-    for artifact, fco_type, claim_ceiling, disclosure, license_value in release_artifacts:
+    for artifact, fco_type, claim_ceiling, disclosure, license_value in ARTIFACTS:
         path = ROOT / artifact
         if not path.exists():
             raise FileNotFoundError(artifact)

@@ -1,0 +1,13 @@
+{
+  "artifact": "AGENTS.md",
+  "claim_ceiling": "PROJECT_POLICY",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:e88716e58576cb474f1d3ba36802ebf8cfffbe3e6f27d8ce6de0c5602e333d0f",
+  "fco_type": "project_governance_artifact",
+  "license": "Apache-2.0",
+  "parents": [],
+  "payload_bytes": 1503,
+  "payload_sha256": "sha256:a450bf122cd09eb79d5e65640e50cb911fac958ec20a77e103d5e46ce7e53dcf",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

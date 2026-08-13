@@ -15,7 +15,6 @@ MANIFEST = ROOT / "custody/release-manifest.json"
 ROOT_TXT = ROOT / "custody/release-root.txt"
 SIG = ROOT / "custody/release-root.sig"
 PUBLIC_KEY = ROOT / "custody/public-key.pem"
-LEDGER_STATUS = ROOT / "custody/ledger-artifact-status.json"
 PROHIBITED_CLAIM_TERMS = [
     "therapeutic efficacy",
     "clinical utility",
@@ -144,21 +143,6 @@ def main() -> int:
         if any(pattern.search(text) for pattern in SECRET_PATTERNS):
             leak_hits.append(relpath)
     ok &= print_status("Private-key leak scan", not leak_hits, ", ".join(leak_hits[:5]))
-
-    manifest_artifacts = {record["artifact"] for record in fcos}
-    ledger_payload = json.loads(LEDGER_STATUS.read_text(encoding="utf-8"))
-    ledger_hash_coverage = True
-    for item in ledger_payload.get("artifacts", []):
-        path = ROOT / item["path"]
-        if not path.exists():
-            continue
-        ledger_hash_coverage = (
-            ledger_hash_coverage
-            and item.get("status") == "present"
-            and item.get("payload_sha256") == f"sha256:{sha256_file(path)}"
-            and item["path"] in manifest_artifacts
-        )
-    ok &= print_status("Ledger hash coverage", ledger_hash_coverage)
 
     print()
     print(f"CUSTODY STATUS: {'VERIFIED' if ok else 'FAILED'}")

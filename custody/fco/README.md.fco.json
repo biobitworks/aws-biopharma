@@ -2,12 +2,12 @@
   "artifact": "README.md",
   "claim_ceiling": "PROJECT_OVERVIEW",
   "disclosure": "PUBLIC",
-  "fco_id": "fco:e7736393ae0c75d32c46214650bce671d2a1788e065723c61df564205f70dfaf",
+  "fco_id": "fco:6b98e2d219494fa84b011d079e6adb188dc4c7f35419e1c1d8ae64cf8aba7df1",
   "fco_type": "project_readme",
   "license": "Apache-2.0",
   "parents": [],
-  "payload_bytes": 4364,
-  "payload_sha256": "sha256:bd0759678bca46a4f93c01c7faba65bd2b5b6fa0bcc8b03e76c7853957c318d6",
+  "payload_bytes": 3707,
+  "payload_sha256": "sha256:1cbc63b23c1d9dba8a1c3edfd4a438ab69e563dc77fcd07c5993bce2f42a17be",
   "schema": "aws-biopharma.fco.v1",
   "signature_scope": "release_root"
 }
