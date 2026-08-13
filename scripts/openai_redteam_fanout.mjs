@@ -104,7 +104,7 @@ const requestedModels = (process.env.OPENAI_REDTEAM_MODELS || '')
   .split(',')
   .map((item) => item.trim())
   .filter(Boolean)
-const maxModels = Math.max(1, Number.parseInt(process.env.OPENAI_REDTEAM_MAX_MODELS || '8', 10))
+const maxModels = Math.max(1, Number.parseInt(process.env.OPENAI_REDTEAM_MAX_MODELS || '10', 10))
 
 if (!apiKeyPresent) {
   writeStatus({
@@ -112,7 +112,6 @@ if (!apiKeyPresent) {
     provider: 'openai',
     model_id: fallbackModel,
     model_ids: [],
-    api_key_present: false,
     note: 'OPENAI_API_KEY is not present in the shell environment or .env.',
   })
   process.exit(1)
@@ -124,7 +123,7 @@ const evidenceBundle = {
   data_policy: readText('DATA_POLICY.md', 8000),
   hackday_status: readText('HACKDAY_STATUS.md', 8000),
   dashboard_html: readText('public/index.html', 8000),
-  dashboard_js: readText('public/app.js', 14000),
+  dashboard_js: readText('public/app.js', 50000),
   dashboard_css: readText('public/styles.css', 8000),
   dashboard_snapshot_without_prior_redteam: readJsonWithoutRedteam('data/dashboard_snapshot.json', 14000),
 }
@@ -184,6 +183,13 @@ async function resolveModelMatrix() {
   return [fallbackModel]
 }
 
+function completionParams(modelId) {
+  if (/^(o\d|gpt-5)/.test(modelId)) {
+    return { max_completion_tokens: 2200, reasoning_effort: 'low' }
+  }
+  return { temperature: 0, max_tokens: 650 }
+}
+
 try {
   const modelIds = await resolveModelMatrix()
   const reviewJobs = modelIds.flatMap((modelId) => roles.map((role) => ({ role, modelId })))
@@ -192,8 +198,7 @@ try {
       try {
       const response = await client.chat.completions.create({
         model: modelId,
-        temperature: 0,
-        max_tokens: 650,
+        ...completionParams(modelId),
         response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: system },
@@ -205,6 +210,27 @@ try {
       })
       const text = response.choices?.[0]?.message?.content || ''
       const parsed = extractJson(text)
+      if (!parsed) {
+        return {
+          id: `${role.id}:${modelId}`,
+          role_id: role.id,
+          label: role.label,
+          model_id: modelId,
+          completed: false,
+          verdict: 'fail',
+          blockers: [],
+          findings: [
+            {
+              severity: 'warning',
+              area: 'openai_model_output',
+              finding: `OpenAI reviewer call completed for ${modelId} but did not return parseable JSON.`,
+              fix: 'Keep the completed model response ID for traceability and retry with a stricter prompt or compatible model if broader coverage is required.',
+            },
+          ],
+          recommended_next_step: 'Retry with a stricter JSON prompt if broader model coverage is required.',
+          response_id: response.id || null,
+        }
+      }
       const findings = Array.isArray(parsed?.findings)
         ? parsed.findings.map(normalizeFinding).filter(Boolean)
         : []
@@ -219,7 +245,7 @@ try {
           : 'fail',
         blockers: Array.isArray(parsed?.blockers)
           ? parsed.blockers.map((item) => String(item).slice(0, 240))
-          : ['Reviewer did not return parseable blockers.'],
+          : [],
         findings,
         recommended_next_step: String(parsed?.recommended_next_step || '').slice(0, 400),
         response_id: response.id || null,
@@ -263,7 +289,6 @@ try {
     provider: 'openai',
     model_id: modelIds[0],
     model_ids: modelIds,
-    api_key_present: true,
     role_count: roles.length,
     reviewer_count: results.length,
     completed_reviewer_count: completedResults.length,
@@ -280,8 +305,7 @@ try {
   writeStatus({
     status: 'fail',
     provider: 'openai',
-    model_id: model,
-    api_key_present: true,
+    model_id: fallbackModel,
     error_type: error?.constructor?.name || 'Error',
     error: String(error?.message || error).slice(0, 500),
   })

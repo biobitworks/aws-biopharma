@@ -1,14 +1,12 @@
 {
   "schema": "aws-biopharma.brightdata-status.v1",
-  "generated_at": "2026-08-13T18:15:10.100Z",
+  "generated_at": "2026-08-13T21:54:19.926Z",
   "provider": "brightdata",
   "status": "token_not_visible",
   "package": "@brightdata/mcp",
   "package_version": "2.6.0",
   "mcp_server": "bright-data",
-  "token_present": false,
-  "token_env_name": null,
-  "token_length": 0,
+  "credential_status": "optional; not visible",
   "groups": "code",
   "note": "Bright Data MCP is configured, but no token alias is visible in this shell or .env."
 }

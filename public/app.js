@@ -39,7 +39,7 @@ function renderIntegrations(env) {
     const key = document.createElement("span");
     key.textContent = item.name;
     const value = document.createElement("span");
-    value.textContent = item.present ? `present (${item.length})` : "not set";
+    value.textContent = item.state || "not configured";
     row.append(key, value);
     target.appendChild(row);
   });
@@ -58,7 +58,6 @@ function renderOpenAIAgent(status) {
     ["Status", status.status],
     ["Provider", status.provider],
     ["Model", status.model_id],
-    ["Key", status.api_key_present ? "present" : "not set"],
     ["Generated", new Date(status.generated_at).toLocaleString()],
   ].forEach(([label, value]) => {
     const row = document.createElement("div");
@@ -153,7 +152,7 @@ function renderBrightData(status) {
     ["Status", status.status],
     ["Package", `${status.package || ""} ${status.package_version || ""}`.trim()],
     ["MCP server", status.mcp_server],
-    ["Token", status.token_present ? `${status.token_env_name} present (${status.token_length})` : "not visible"],
+    ["Credential", status.credential_status || "optional; not visible"],
     ["Groups", status.groups],
     ["Checked", new Date(status.generated_at).toLocaleString()],
   ].forEach(([label, value]) => {

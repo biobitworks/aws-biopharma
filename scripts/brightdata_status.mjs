@@ -32,10 +32,10 @@ function firstToken() {
   for (const name of tokenNames) {
     const value = process.env[name]
     if (value && !['...', 'changeme', 'paste_key_here', 'paste_token_here'].includes(value.toLowerCase())) {
-      return { name, length: value.length }
+      return true
     }
   }
-  return null
+  return false
 }
 
 function packageVersion() {
@@ -58,9 +58,7 @@ const payload = {
   package: '@brightdata/mcp',
   package_version: packageVersion(),
   mcp_server: 'bright-data',
-  token_present: Boolean(token),
-  token_env_name: token?.name || null,
-  token_length: token?.length || 0,
+  credential_status: token ? 'configured locally; value not published' : 'optional; not visible',
   groups: process.env.BRIGHTDATA_GROUPS || 'code',
   note: token
     ? 'Bright Data MCP can be started locally from .mcp.json. This status check does not spend credits or call Bright Data APIs.'

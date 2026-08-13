@@ -166,11 +166,19 @@ def redact_env(names: Iterable[str]) -> list[dict[str, object]]:
     values: list[dict[str, object]] = []
     for name in names:
         value = os.getenv(name, "")
+        label = {
+            "OPENAI_API_KEY": "OpenAI API credential",
+            "CONVOKE_MCP_TOKEN": "Convoke MCP credential",
+            "BRIGHTDATA_API_KEY": "Bright Data credential",
+            "BRIGHT_DATA_API_KEY": "Bright Data credential",
+            "BRIGHTDATA_TOKEN": "Bright Data credential",
+            "BRIGHT_DATA_TOKEN": "Bright Data credential",
+        }.get(name, name)
+        configured = bool(value and value.lower() not in placeholders)
         values.append(
             {
-                "name": name,
-                "present": bool(value and value.lower() not in placeholders),
-                "length": len(value) if value else 0,
+                "name": label,
+                "state": "configured locally; value not published" if configured else "not configured",
             }
         )
     return values

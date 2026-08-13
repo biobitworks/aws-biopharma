@@ -1,6 +1,6 @@
 {
   "schema": "aws-biopharma.dashboard.v1",
-  "generated_at": "2026-08-13T19:40:19.499552+00:00",
+  "generated_at": "2026-08-13T21:55:25.783061+00:00",
   "project": {
     "name": "AWS Biopharma Hack Day",
     "path": "/Users/byron/projects/active/aws-biopharma",
@@ -164,68 +164,981 @@
   "integrations": {
     "openai_agent": {
       "schema": "aws-biopharma.openai-agent-status.v1",
-      "generated_at": "2026-08-13T18:14:10.225Z",
+      "generated_at": "2026-08-13T21:54:19.679Z",
       "status": "pass",
       "provider": "openai",
       "model_id": "gpt-4o-mini",
-      "api_key_present": true,
       "stop_reason": "endTurn",
-      "output": "OpenAI provides advanced language models that can assist in data analysis, natural language processing, and generating insights from biopharma-related datasets in the AWS Biopharma demo."
+      "output": "OpenAI provides advanced language models that can assist in data analysis, natural language processing, and generating insights from biopharma-related datasets in the AWS environment."
+    },
+    "openai_redteam": {
+      "schema": "aws-biopharma.openai-redteam-status.v1",
+      "generated_at": "2026-08-13T21:55:08.746Z",
+      "status": "pass",
+      "provider": "openai",
+      "model_id": "gpt-4.1",
+      "model_ids": [
+        "gpt-4.1",
+        "gpt-4.1-mini",
+        "gpt-4o",
+        "gpt-4o-mini",
+        "o4-mini",
+        "o3-mini",
+        "gpt-5",
+        "gpt-5-mini",
+        "gpt-5-nano"
+      ],
+      "role_count": 3,
+      "reviewer_count": 27,
+      "completed_reviewer_count": 27,
+      "model_error_count": 0,
+      "blockers": [],
+      "reviewers": [
+        {
+          "id": "live_dashboard_viability:gpt-4.1",
+          "role_id": "live_dashboard_viability",
+          "label": "Live dashboard viability",
+          "model_id": "gpt-4.1",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "info",
+              "area": "Bright Data integration",
+              "finding": "Bright Data provider is optional and reports 'token_not_visible' when not configured. The dashboard surfaces this status clearly and does not break rendering.",
+              "fix": "None needed for teammate review; optional provider status is handled."
+            },
+            {
+              "severity": "info",
+              "area": "OpenAI red-team panel",
+              "finding": "OpenAI red-team output is intentionally omitted in the supplied snapshot, but the dashboard JS and HTML handle this by showing a placeholder message. The current run will generate the panel.",
+              "fix": "No action needed; this is not a blocker."
+            },
+            {
+              "severity": "info",
+              "area": "Data loading",
+              "finding": "The dashboard loads data from './data/dashboard_snapshot.json' and handles fetch errors by displaying an error message in the status pill. No evidence of blank screen or broken render path if the file is present.",
+              "fix": "Ensure 'npm run pull:data' is run before serving to update the snapshot."
+            },
+            {
+              "severity": "info",
+              "area": "Run instructions",
+              "finding": "README and hackday_status provide clear, step-by-step local run instructions using a local server URL (http://127.0.0.1:8765). No confusing or missing steps for teammate review.",
+              "fix": "None needed."
+            },
+            {
+              "severity": "info",
+              "area": "Status surfaces",
+              "finding": "All integration and data statuses (OpenAI, Bright Data, custody, overnight data, evidence graph) are surfaced in the dashboard with clear fallback messages if not configured or missing.",
+              "fix": "No action needed."
+            }
+          ],
+          "recommended_next_step": "Proceed with teammate review. Ensure 'npm run pull:data' is run before 'npm run serve' to update the dashboard snapshot. Optional integrations (Bright Data, OpenAI red-team) are surfaced as not configured or pending if not present, and do not block dashboard review.",
+          "response_id": "chatcmpl-ECXfRVCm3RHGifto65kbkqNaKfCj6"
+        },
+        {
+          "id": "secrets_and_client_safety:gpt-4.1",
+          "role_id": "secrets_and_client_safety",
+          "label": "Secrets and client safety",
+          "model_id": "gpt-4.1",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "medium",
+              "area": ".env and secret handling",
+              "finding": "The README and data policy clearly instruct not to commit .env, API keys, or secrets. The integration status in the dashboard snapshot confirms that OpenAI and Bright Data credentials are not published, and the dashboard only reports their presence/absence, not values. However, there is no explicit .gitignore or .env.example file shown in the evidence to enforce this at the repo level.",
+              "fix": "Ensure a .gitignore is present with .env and any secret files listed. Optionally, provide a .env.example with placeholder values."
+            },
+            {
+              "severity": "low",
+              "area": "client-side API usage",
+              "finding": "The dashboard JavaScript (app.js) only fetches static JSON data (dashboard_snapshot.json) and does not make any direct API calls to OpenAI, Bright Data, or other providers from the browser. All provider calls are handled server-side or via local scripts, as confirmed by the README and scripts section.",
+              "fix": "No action needed; this is a safe pattern."
+            },
+            {
+              "severity": "low",
+              "area": "public data files",
+              "finding": "No secrets or API keys are present in public/data/ or data/ according to the dashboard snapshot and README. All included artifacts are hashed and provenance-tracked.",
+              "fix": "Continue to verify that no provider outputs or credentials are published unless redistribution rights are explicit."
+            },
+            {
+              "severity": "low",
+              "area": "OpenAI usage",
+              "finding": "OpenAI is only called via local scripts (npm run agent:openai, npm run pull:data) and not from the browser. The dashboard only displays status/output metadata, not raw API responses or credentials.",
+              "fix": "No action needed; this is compliant."
+            },
+            {
+              "severity": "low",
+              "area": "repo status assumptions",
+              "finding": "The dashboard and README make it clear that provider tokens are optional and their absence is not a failure. The dashboard explicitly reports 'token_not_visible' for Bright Data and 'configured locally; value not published' for OpenAI.",
+              "fix": "No action needed; this is a correct and safe pattern."
+            }
+          ],
+          "recommended_next_step": "Add or verify a .gitignore file that excludes .env and any secret files. Optionally, provide a .env.example for clarity. Continue to ensure that all provider calls are made server-side or via local scripts, and that no secrets or restricted provider outputs are published.",
+          "response_id": "chatcmpl-ECXfRZFMISbu08X3HOSoRAMf6jWcL"
+        },
+        {
+          "id": "claim_ceiling_and_rights:gpt-4.1",
+          "role_id": "claim_ceiling_and_rights",
+          "label": "Claim ceiling and rights",
+          "model_id": "gpt-4.1",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "high",
+              "area": "claim boundary",
+              "finding": "The dashboard and repo explicitly prohibit claims of therapeutic efficacy, clinical utility, diagnosis, treatment recommendation, measured rescue, or biological rejuvenation. The claim ceiling is set to 'REPURPOSING_HYPOTHESIS / reproducible evidence workflow only', and this is enforced in both documentation and dashboard rendering.",
+              "fix": "None required; maintain current claim boundary and ensure no future dashboard or documentation changes exceed this ceiling."
+            },
+            {
+              "severity": "medium",
+              "area": "provider output redistribution",
+              "finding": "Provider outputs (Convoke, Bright Data, etc.) are only shown or included when usage and redistribution rights are verified. The data policy and hackday status both state that provider outputs are local-only/redacted unless rights are explicit. The dashboard snapshot and JS do not expose or redistribute raw provider data.",
+              "fix": "Continue to verify and document usage rights for any new provider outputs before including them in public artifacts."
+            },
+            {
+              "severity": "medium",
+              "area": "data-rights and evidence workflow",
+              "finding": "All imported data sources and provider results are required to have metadata verifying public status, absence of PHI, and usage rights. The dashboard only includes public, synthetic, or explicitly permitted data. Chain-of-custody is documented and rendered, with artifact hashes and receipts.",
+              "fix": "Maintain strict metadata and custody requirements for all new data imports."
+            },
+            {
+              "severity": "low",
+              "area": "clinical/therapeutic overclaiming",
+              "finding": "The dashboard and repo are careful to avoid overclaiming. All demo claims are limited to reproducible evidence workflow and candidate ranking, not clinical outcomes. The evidence graph figure receipt explicitly states 'no clinical efficacy claim'.",
+              "fix": "Continue to review all dashboard text and outputs for accidental overclaiming, especially if new features are added."
+            },
+            {
+              "severity": "low",
+              "area": "optional provider integration",
+              "finding": "Bright Data integration is optional and the dashboard reports 'token_not_visible' as a non-blocking status. This is handled gracefully in the JS and does not break rendering or workflow.",
+              "fix": "No action needed; optional provider status is correctly surfaced."
+            }
+          ],
+          "recommended_next_step": "Proceed with teammate review. Ensure any new data or provider outputs are checked for redistribution rights and that all claims remain within the documented evidence workflow ceiling. Monitor for accidental overclaiming if dashboard content or integrations expand.",
+          "response_id": "chatcmpl-ECXfSYweHIVt9aVobqnkcEwivsAi8"
+        },
+        {
+          "id": "live_dashboard_viability:gpt-4.1-mini",
+          "role_id": "live_dashboard_viability",
+          "label": "Live dashboard viability",
+          "model_id": "gpt-4.1-mini",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "minor",
+              "area": "Bright Data integration",
+              "finding": "Bright Data MCP status shows 'token_not_visible' and credential status 'optional; not visible', indicating no token is configured in the environment or .env. This is expected and not a failure, but the dashboard clearly reports this state.",
+              "fix": "No fix needed; ensure users understand Bright Data token is optional and absence is reported as 'not configured' in the dashboard."
+            },
+            {
+              "severity": "minor",
+              "area": "OpenAI Red Team panel",
+              "finding": "OpenAI red-team status is omitted in the current snapshot as it is being generated by the current run. The dashboard handles this gracefully by showing a placeholder message.",
+              "fix": "No fix needed; this is expected behavior during red-team generation."
+            },
+            {
+              "severity": "minor",
+              "area": "Run instructions",
+              "finding": "Run instructions in README and hackday status are clear and consistent, specifying environment setup, dependency installation, agent runs, data pulls, and serving the static dashboard at http://127.0.0.1:8765. The local server URL is sufficient for local review.",
+              "fix": "No fix needed; instructions are adequate for teammate review."
+            },
+            {
+              "severity": "minor",
+              "area": "Dashboard data loading",
+              "finding": "Dashboard JavaScript fetches './data/dashboard_snapshot.json' with no caching and handles fetch errors by displaying the error message in the status pill. This prevents blank screens on data load failure.",
+              "fix": "No fix needed; error handling is appropriate."
+            },
+            {
+              "severity": "minor",
+              "area": "Status surfaces",
+              "finding": "All major integration statuses (OpenAI agent, OpenAI red team, Bright Data) and data artifacts (overnight data, custody, evidence graph) are surfaced with fallback messages if data is missing or not run yet.",
+              "fix": "No fix needed; status surfaces are comprehensive and informative."
+            }
+          ],
+          "recommended_next_step": "Proceed with teammate review using the provided run instructions and local server URL. Confirm Convoke login and MCP client availability separately as noted. Monitor the OpenAI red-team panel once generation completes. No blockers prevent review of the static dashboard.",
+          "response_id": "chatcmpl-ECXfSMPCj5zs8RE939NYKTwV4o4bg"
+        },
+        {
+          "id": "secrets_and_client_safety:gpt-4.1-mini",
+          "role_id": "secrets_and_client_safety",
+          "label": "Secrets and client safety",
+          "model_id": "gpt-4.1-mini",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "low",
+              "area": "Environment and .env handling",
+              "finding": "API keys such as OPENAI_API_KEY and Bright Data tokens are expected to be set in the local environment or .env file, which is not committed to the repo. The README explicitly instructs not to commit .env or API keys.",
+              "fix": "Continue to ensure .env and API keys are gitignored and not committed."
+            },
+            {
+              "severity": "low",
+              "area": "Client-side JavaScript",
+              "finding": "The dashboard JavaScript fetches only public snapshot JSON data and renders status and metadata. No API keys or secrets are embedded or exposed in the client-side code or public data files.",
+              "fix": "No action needed; maintain separation of secrets from public data."
+            },
+            {
+              "severity": "low",
+              "area": "OpenAI API usage",
+              "finding": "OpenAI API calls are performed only in local Node.js scripts (e.g., scripts/openai_agent_smoke.mjs) using environment variables for keys. The dashboard only displays status metadata, not raw API keys or responses.",
+              "fix": "Ensure all OpenAI API calls remain server/local-side and keys are never exposed client-side."
+            },
+            {
+              "severity": "low",
+              "area": "Bright Data integration",
+              "finding": "Bright Data token is optional and not visible in the current environment or .env, which is reflected as 'token_not_visible' status in the dashboard. This is not a failure or secret leakage.",
+              "fix": "No action needed; token visibility is handled correctly."
+            },
+            {
+              "severity": "low",
+              "area": "Repository status and data files",
+              "finding": "Public data files and snapshots are included with SHA-256 hashes and chain-of-custody metadata to ensure integrity and no secrets are leaked. Private keys (e.g., signing keys) are kept local and gitignored.",
+              "fix": "Continue to enforce chain-of-custody and exclude secrets from public artifacts."
+            }
+          ],
+          "recommended_next_step": "Maintain current best practices for secret management by keeping API keys and tokens only in local environment or .env files excluded from version control. Continue to perform all API calls server-side and expose only sanitized status metadata in the dashboard. Regularly audit public data files and snapshots to ensure no secrets are included.",
+          "response_id": "chatcmpl-ECXfSbpktU4A2OxSsuKOtycrPPm7f"
+        },
+        {
+          "id": "claim_ceiling_and_rights:gpt-4.1-mini",
+          "role_id": "claim_ceiling_and_rights",
+          "label": "Claim ceiling and rights",
+          "model_id": "gpt-4.1-mini",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "low",
+              "area": "Claim Boundary",
+              "finding": "The dashboard and repo explicitly restrict claims to a reproducible evidence workflow and repurposing hypothesis only, disallowing therapeutic efficacy, clinical utility, diagnosis, treatment recommendation, or biological rejuvenation claims.",
+              "fix": "Maintain strict adherence to the documented claim ceiling in all dashboard text and code to avoid overclaiming."
+            },
+            {
+              "severity": "low",
+              "area": "Provider Output Redistribution",
+              "finding": "Provider outputs from Convoke, Bright Data, and others are included only as local copies with hashes and are governed by source/provider terms. Raw provider outputs are not published unless redistribution rights are verified.",
+              "fix": "Continue to enforce local-only use of provider outputs and do not commit or publish raw provider data without explicit rights."
+            },
+            {
+              "severity": "low",
+              "area": "Dashboard Integration Status Reporting",
+              "finding": "Bright Data integration status shows 'token_not_visible' which is an expected optional state and is reported clearly in the dashboard as 'optional; not visible'. This does not block dashboard operation or claim validity.",
+              "fix": "No fix needed; this is an acceptable optional integration state with clear reporting."
+            },
+            {
+              "severity": "low",
+              "area": "Chain of Custody and Reproducibility",
+              "finding": "The dashboard includes detailed chain-of-custody artifacts with SHA-256 hashes, Merkle receipts, tamper tests, and signed release verification to support reproducibility and evidence traceability.",
+              "fix": "Ensure all chain-of-custody artifacts remain up to date and are included in releases to maintain reproducibility guarantees."
+            }
+          ],
+          "recommended_next_step": "Proceed with team review and demo preparation, ensuring all claims remain within the documented reproducible evidence workflow boundary and provider data usage policies are strictly followed.",
+          "response_id": "chatcmpl-ECXfRXsebaFhZz3dTcdz5NcWdeAQF"
+        },
+        {
+          "id": "live_dashboard_viability:gpt-4o",
+          "role_id": "live_dashboard_viability",
+          "label": "Live dashboard viability",
+          "model_id": "gpt-4o",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "low",
+              "area": "documentation",
+              "finding": "The README and Hackday Status documents contain redundant information about running the dashboard, which could be streamlined for clarity.",
+              "fix": "Consolidate run instructions into a single section to avoid duplication and potential confusion."
+            },
+            {
+              "severity": "low",
+              "area": "integration",
+              "finding": "Bright Data integration shows 'token_not_visible', which is expected as per the documentation, but might confuse users unfamiliar with the setup.",
+              "fix": "Add a note in the dashboard or documentation explaining that 'token_not_visible' is a normal status for optional integrations."
+            }
+          ],
+          "recommended_next_step": "Proceed with teammate review, ensuring they are aware of the optional nature of some integrations and the expected status messages.",
+          "response_id": "chatcmpl-ECXfS8ioffZpLXlRZQo4VOcFUKP3m"
+        },
+        {
+          "id": "secrets_and_client_safety:gpt-4o",
+          "role_id": "secrets_and_client_safety",
+          "label": "Secrets and client safety",
+          "model_id": "gpt-4o",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "medium",
+              "area": "client-side API usage",
+              "finding": "OpenAI API key is used client-side through environment variables, which could be exposed if not properly secured.",
+              "fix": "Ensure that environment variables are not exposed in client-side code and are securely managed on the server-side."
+            },
+            {
+              "severity": "low",
+              "area": ".env handling",
+              "finding": "The README suggests placing sensitive tokens in a `.env` file, which could be accidentally committed to the repository.",
+              "fix": "Add `.env` to `.gitignore` and ensure that sensitive information is not committed to the repository."
+            },
+            {
+              "severity": "low",
+              "area": "public data files",
+              "finding": "The dashboard fetches data from `./data/dashboard_snapshot.json` without authentication, which could expose data if the server is not properly secured.",
+              "fix": "Ensure that the server hosting the data is secure and access is controlled."
+            }
+          ],
+          "recommended_next_step": "Review server-side security measures to ensure environment variables and sensitive data are not exposed.",
+          "response_id": "chatcmpl-ECXfRFLlsIFAdOGsnDlqdA9xWJHjp"
+        },
+        {
+          "id": "claim_ceiling_and_rights:gpt-4o",
+          "role_id": "claim_ceiling_and_rights",
+          "label": "Claim ceiling and rights",
+          "model_id": "gpt-4o",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "medium",
+              "area": "data-rights",
+              "finding": "Provider outputs from Convoke, Bright Data, and similar services are local-only/redacted until usage and redistribution rights are verified.",
+              "fix": "Ensure that any provider outputs used in the dashboard have verified usage and redistribution rights before making them public."
+            },
+            {
+              "severity": "low",
+              "area": "claim-boundary",
+              "finding": "The dashboard must not claim therapeutic efficacy, clinical utility, diagnosis, treatment recommendation, measured rescue, or biological rejuvenation.",
+              "fix": "Ensure all claims made by the dashboard are within the reproducible evidence workflow and bounded candidate ranking."
+            }
+          ],
+          "recommended_next_step": "Proceed with teammate review, ensuring that all claims and data usage adhere to the documented boundaries and rights.",
+          "response_id": "chatcmpl-ECXfSAomqpx6ci8B3Sz1zHNYqBs8S"
+        },
+        {
+          "id": "live_dashboard_viability:gpt-4o-mini",
+          "role_id": "live_dashboard_viability",
+          "label": "Live dashboard viability",
+          "model_id": "gpt-4o-mini",
+          "completed": true,
+          "verdict": "pass",
+          "blockers": [],
+          "findings": [],
+          "recommended_next_step": "Proceed with teammate review as the dashboard is functional and provides necessary integration statuses.",
+          "response_id": "chatcmpl-ECXfSkkQ2sv1D4MimQEdq9pKgT6lz"
+        },
+        {
+          "id": "secrets_and_client_safety:gpt-4o-mini",
+          "role_id": "secrets_and_client_safety",
+          "label": "Secrets and client safety",
+          "model_id": "gpt-4o-mini",
+          "completed": true,
+          "verdict": "pass",
+          "blockers": [],
+          "findings": [],
+          "recommended_next_step": "Continue with the current integration and testing process.",
+          "response_id": "chatcmpl-ECXfR9Fg2ajY2NKJ39exmmZ5GS1uU"
+        },
+        {
+          "id": "claim_ceiling_and_rights:gpt-4o-mini",
+          "role_id": "claim_ceiling_and_rights",
+          "label": "Claim ceiling and rights",
+          "model_id": "gpt-4o-mini",
+          "completed": true,
+          "verdict": "pass",
+          "blockers": [],
+          "findings": [],
+          "recommended_next_step": "Continue with the current integration and ensure all claims remain within the defined boundaries.",
+          "response_id": "chatcmpl-ECXfSvXp2NfKsVJHCMg9ShiVc1xDP"
+        },
+        {
+          "id": "live_dashboard_viability:o4-mini",
+          "role_id": "live_dashboard_viability",
+          "label": "Live dashboard viability",
+          "model_id": "o4-mini",
+          "completed": true,
+          "verdict": "pass",
+          "blockers": [],
+          "findings": [],
+          "recommended_next_step": "Run npm serve locally (npm run serve) and access http://127.0.0.1:8765 to confirm that all panels render correctly before sharing with the team.",
+          "response_id": "chatcmpl-ECXfSOUfjbvHuskF5HLeDjwklIKnQ"
+        },
+        {
+          "id": "secrets_and_client_safety:o4-mini",
+          "role_id": "secrets_and_client_safety",
+          "label": "Secrets and client safety",
+          "model_id": "o4-mini",
+          "completed": true,
+          "verdict": "pass",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "low",
+              "area": ".env/api_key_handling",
+              "finding": "Environment variables for API keys (OpenAI, Bright Data, Convoke) are read at build/pull time and not exposed in client-side code. No secrets are committed to the repo.",
+              "fix": "Continue ensuring `.env` remains git-ignored and keys are only accessed in server-side scripts."
+            },
+            {
+              "severity": "low",
+              "area": "public/javascript",
+              "finding": "Client-side dashboard code fetches only static JSON snapshots and does not embed any API credentials or perform live API calls.",
+              "fix": "No action required; maintain data snapshots and ensure no future code injects credentials into `app.js`."
+            },
+            {
+              "severity": "low",
+              "area": "integrations.env_list",
+              "finding": "Multiple identical Bright Data credential placeholders appear in the `env` list, which may be confusing.",
+              "fix": "Deduplicate the `Bright Data credential` entries in the integrations snapshot for clarity."
+            }
+          ],
+          "recommended_next_step": "Proceed with teammate review; monitor that no secrets are accidentally introduced and maintain the existing pattern of server-side API key usage.",
+          "response_id": "chatcmpl-ECXfSm2Ckua41zXB8Eg9YnC9rgId6"
+        },
+        {
+          "id": "claim_ceiling_and_rights:o4-mini",
+          "role_id": "claim_ceiling_and_rights",
+          "label": "Claim ceiling and rights",
+          "model_id": "o4-mini",
+          "completed": true,
+          "verdict": "pass",
+          "blockers": [],
+          "findings": [],
+          "recommended_next_step": "Await completion of the OpenAI red-team run and merge its results into the dashboard for final review.",
+          "response_id": "chatcmpl-ECXfSECHsULDxRdJ4MKnK3UPOXLMg"
+        },
+        {
+          "id": "live_dashboard_viability:o3-mini",
+          "role_id": "live_dashboard_viability",
+          "label": "Live dashboard viability",
+          "model_id": "o3-mini",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "low",
+              "area": "data loads",
+              "finding": "Data is pulled from a snapshot file and renders appropriately. Fallback messages are provided if certain integrations (like OpenAI redteam) are not pre-run.",
+              "fix": "No changes required."
+            },
+            {
+              "severity": "low",
+              "area": "status surfaces",
+              "finding": "Dashboard correctly displays integration statuses, including the optional Bright Data token state as 'token_not_visible'.",
+              "fix": "None."
+            },
+            {
+              "severity": "low",
+              "area": "run instructions",
+              "finding": "The run instructions are clear and provide a complete command sequence. However, there may be slight confusion for users unfamiliar with local environment setup for API credentials.",
+              "fix": "Optionally, add a brief note on ensuring environment variables are set before running integration commands."
+            },
+            {
+              "severity": "low",
+              "area": "local server URL",
+              "finding": "Using a local server URL (http://127.0.0.1:8765) is acceptable for the demo, as documented in the README.",
+              "fix": "No changes required."
+            }
+          ],
+          "recommended_next_step": "Proceed with teammate review; consider minor documentation clarification regarding environment variables, but no blockers exist for review.",
+          "response_id": "chatcmpl-ECXfS0nXPJxgcqxQkuzSIpStsobuW"
+        },
+        {
+          "id": "secrets_and_client_safety:o3-mini",
+          "role_id": "secrets_and_client_safety",
+          "label": "Secrets and client safety",
+          "model_id": "o3-mini",
+          "completed": true,
+          "verdict": "pass",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "info",
+              "area": "API keys & secrets management",
+              "finding": "Sensitive API keys and tokens (e.g., OPENAI_API_KEY, Bright Data tokens, Convoke MCP token) are read from the environment or .env file and are not exposed in the client-side code or committed to the repository.",
+              "fix": "No action needed."
+            },
+            {
+              "severity": "info",
+              "area": "Client-side API usage",
+              "finding": "Client-side code (dashboard JS) only handles rendering of pre-fetched JSON snapshot data. There is no client-side code invoking external APIs or including sensitive data.",
+              "fix": "No action needed."
+            },
+            {
+              "severity": "info",
+              "area": "OpenAI API usage",
+              "finding": "OpenAI integration appears to be handled server-side through the agent scripts, with only status and metadata passed to the dashboard. The secret key is not exposed client-side.",
+              "fix": "No action needed."
+            },
+            {
+              "severity": "info",
+              "area": ".env handling and public data files",
+              "finding": ".env files and local provider tokens are not part of the publicly rendered dashboard, and public data files and snapshots do not contain sensitive secrets.",
+              "fix": "No action needed."
+            }
+          ],
+          "recommended_next_step": "Continue monitoring integration configurations and ensure any future changes maintain separation between sensitive server-side configurations and client-side rendering.",
+          "response_id": "chatcmpl-ECXfRqJ5vnPzzVDqbyqtKm8iXpXEd"
+        },
+        {
+          "id": "claim_ceiling_and_rights:o3-mini",
+          "role_id": "claim_ceiling_and_rights",
+          "label": "Claim ceiling and rights",
+          "model_id": "o3-mini",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "low",
+              "area": "Clinical/Therapeutic Claims",
+              "finding": "The demo clearly bounds claims within a reproducible evidence workflow, explicitly disallowing overclaiming of clinical efficacy or therapeutic outcomes.",
+              "fix": "Maintain explicit disclaimers and ensure that any clinical language is carefully moderated in accordance with the claim ceiling."
+            },
+            {
+              "severity": "low",
+              "area": "Provider Output Redistribution",
+              "finding": "Provider outputs, including Bright Data and Convoke outputs, are treated as local-only with redistribution limits. The visible status 'token_not_visible' for Bright Data is intentional and within demo guidelines.",
+              "fix": "Document and monitor that all provider outputs continue to meet local-use constraints and do not expose sensitive data."
+            },
+            {
+              "severity": "low",
+              "area": "Reproducibility & Evidence Workflow",
+              "finding": "The dashboard integrates a clear chain-of-custody and reproducible evidence workflow including Git commits, artifact hashes, and signed release artifacts. The established claim ceiling limits overreach beyond the documented evidence.",
+              "fix": "Continue using the documented reproducible evidence workflow and chain-of-custody mechanism to support the dashboard's claims."
+            }
+          ],
+          "recommended_next_step": "Ensure ongoing documentation of boundaries and enforce strict adherence to data-rights policies while monitoring integration statuses. Also, periodically review integration configurations for any changes in provider output management.",
+          "response_id": "chatcmpl-ECXfSj7bybj64eAliX7Afsy6FMBlg"
+        },
+        {
+          "id": "live_dashboard_viability:gpt-5",
+          "role_id": "live_dashboard_viability",
+          "label": "Live dashboard viability",
+          "model_id": "gpt-5",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "low",
+              "area": "Integrations UI",
+              "finding": "Duplicate Bright Data credential entries appear in the integration environment list (four identical rows).",
+              "fix": "Deduplicate the env array before rendering or ensure the snapshot generator emits one consolidated Bright Data credential status."
+            },
+            {
+              "severity": "low",
+              "area": "Red-team panel UX",
+              "finding": "OpenAI red-team section does not surface the provided note field; with a placeholder status it renders as empty aside from generic rows.",
+              "fix": "In renderOpenAIRedTeam, display status.note beneath the KV rows to clarify interim/omitted states."
+            },
+            {
+              "severity": "low",
+              "area": "Data load robustness",
+              "finding": "If dashboard_snapshot.json fails to load, only the header pill shows the error and the rest of the panels remain blank.",
+              "fix": "In the catch handler, render a visible error banner and brief instructions to run `npm run pull:data` or place a snapshot in public/data/ to avoid an opaque blank main area."
+            },
+            {
+              "severity": "low",
+              "area": "Run instructions portability",
+              "finding": "README and Hackday Status include absolute local paths (/Users/byron/...) that may confuse teammates on other machines.",
+              "fix": "Prepend a generic quickstart using relative paths (git clone, cd repo, then the npm/python commands), and note that absolute paths are examples."
+            }
+          ],
+          "recommended_next_step": "Proceed with teammate review using `npm run serve` at http://127.0.0.1:8765. Optionally clean up the duplicate Bright Data env rows and add a small red-team note display for clarity, but these are not blockers.",
+          "response_id": "chatcmpl-ECXfSAadbzHRu7bW13q0MHD5RvJCZ"
+        },
+        {
+          "id": "secrets_and_client_safety:gpt-5",
+          "role_id": "secrets_and_client_safety",
+          "label": "Secrets and client safety",
+          "model_id": "gpt-5",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "medium",
+              "area": "logging/output redaction",
+              "finding": "Agent and red-team status/output strings are mirrored into public dashboard data and rendered in the browser, which could inadvertently expose sensitive content if any secret or token is ever echoed by a script or provider response.",
+              "fix": "Add a redaction/sanitization step in scripts that write data/openai_agent_status.json and red-team outputs to strip patterns resembling API keys/tokens (e.g., OpenAI, Bright Data, bearer tokens) before persisting or mirroring to public/data/."
+            },
+            {
+              "severity": "low",
+              "area": "browser security",
+              "finding": "External links use target=\"_blank\" with rel=\"noreferrer\" only; omitting \"noopener\" leaves a potential reverse tabnabbing vector.",
+              "fix": "Set link.rel = \"noopener noreferrer\" for all target=\"_blank\" links in app.js."
+            },
+            {
+              "severity": "low",
+              "area": "information exposure",
+              "finding": "Dashboard snapshot includes local absolute paths (e.g., /Users/byron/...) which reveal the local username and filesystem structure if published.",
+              "fix": "Replace absolute local paths in generated snapshots with relative or anonymized paths before publishing."
+            },
+            {
+              "severity": "low",
+              "area": "UI/state reporting",
+              "finding": "Environment list repeats \"Bright Data credential\" four times, which may confuse readers and imply misconfiguration despite the optional token status.",
+              "fix": "Deduplicate or consolidate the Bright Data credential aliases into a single row noting the supported variable names."
+            },
+            {
+              "severity": "low",
+              "area": "repo hygiene",
+              "finding": "Project relies on .env for provider tokens/keys; while docs say not to commit secrets, the ignore rules are not shown here.",
+              "fix": "Ensure .gitignore includes .env and any .custody-private/ paths; verify CI and release scripts do not package .env or private keys."
+            }
+          ],
+          "recommended_next_step": "Harden the output pipeline: add a redact-secrets utility to the Node/Python scripts that generate data/* and public/data/*, update app.js links to use rel=\"noopener noreferrer\", and scrub absolute local paths from snapshots before publishing. Verify .gitignore covers .env and private custody keys.",
+          "response_id": "chatcmpl-ECXfS0FnIpbJU4G9bGuQfieGeIf73"
+        },
+        {
+          "id": "claim_ceiling_and_rights:gpt-5",
+          "role_id": "claim_ceiling_and_rights",
+          "label": "Claim ceiling and rights",
+          "model_id": "gpt-5",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "medium",
+              "area": "data-rights / provider outputs",
+              "finding": "MagicStudioBox overnight artifacts are included locally and referenced in the dashboard snapshot, but per-file usage/redistribution rights metadata (the Required Metadata block) is not shown or linked for those artifacts.",
+              "fix": "Attach and display a small metadata JSON alongside each listed artifact with fields like public_data, usage_rights_verified, license_or_terms, source, retrieved_at, and payload_sha256; surface a one-line \u2018local use only unless rights verified\u2019 note in the Overnight Data panel."
+            },
+            {
+              "severity": "low",
+              "area": "claims ceiling visibility",
+              "finding": "While the claim ceiling is documented, the Evidence Graph and Overnight Data panels could more explicitly reiterate \u2018no clinical efficacy/diagnosis/treatment claims\u2019 at point-of-view to prevent overclaiming in presentations.",
+              "fix": "Add a short caption or badge on those panels (e.g., \u2018Reproducible evidence workflow only \u2014 no therapeutic claims\u2019) and include the figure receipt hash inline."
+            },
+            {
+              "severity": "low",
+              "area": "integration status clarity",
+              "finding": "The environment list shows the Bright Data credential four times, which can be confusing even if it reflects multiple alias names.",
+              "fix": "Collapse the four Bright Data aliases into a single \u2018Bright Data credential (aliases supported)\u2019 entry or group them under one header."
+            },
+            {
+              "severity": "low",
+              "area": "redistribution guardrails in UI",
+              "finding": "Provider-output redistribution policy is documented in README/Data Policy, but the dashboard UI relies on those docs rather than an in-app reminder near potentially sensitive listings.",
+              "fix": "Add a persistent small notice in the Integration State or Chain of Custody panels: \u2018Provider outputs are local-only unless redistribution rights are verified; raw outputs are not published by this dashboard.\u2019"
+            },
+            {
+              "severity": "low",
+              "area": "reproducibility signage",
+              "finding": "The signed release and determinism receipts exist, but the dashboard\u2019s top-level summary does not highlight the verify command/path for quick judge reproduction.",
+              "fix": "Add a short \u2018Verify release\u2019 command snippet (python3 custody/verify-release.py) and the release-root.sig hash to the Chain of Custody panel."
+            }
+          ],
+          "recommended_next_step": "Keep the current claim boundary; when the OpenAI red-team result completes, mirror it into the snapshot and render it. Add per-artifact usage-rights metadata for MagicStudioBox files and place a visible \u2018no clinical claims / local-use only unless rights verified\u2019 note on the Evidence Graph and Overnight Data panels.",
+          "response_id": "chatcmpl-ECXfS93K9pKiEkvvG69dzS4t2pVRd"
+        },
+        {
+          "id": "live_dashboard_viability:gpt-5-mini",
+          "role_id": "live_dashboard_viability",
+          "label": "Live dashboard viability",
+          "model_id": "gpt-5-mini",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "minor",
+              "area": "Bright Data status",
+              "finding": "Bright Data is shown as token_not_visible and multiple identical 'Bright Data credential' entries appear in the env list. The dashboard correctly surfaces token absence, but duplicate env entries may confuse reviewers.",
+              "fix": "Deduplicate or collapse repeated env entries before writing dashboard_snapshot.json (scripts/status writer) and add a short explanatory label when credential is intentionally optional (e.g. 'optional; token not set')."
+            },
+            {
+              "severity": "minor",
+              "area": "OpenAI red-team panel",
+              "finding": "OpenAI red-team status is omitted in the snapshot (openai_redteam.status == 'omitted_for_current_review'). The dashboard displays a helpful 'Not run yet' message when the block is missing, so absence does not break rendering but may confuse a reviewer expecting red-team output.",
+              "fix": "When red-team output is intentionally omitted, replace the omission with a short status object that explains 'being generated; will appear after current run' so the panel shows clearer guidance instead of relying on the 'Not run yet' message."
+            },
+            {
+              "severity": "minor",
+              "area": "Run instructions",
+              "finding": "Run sequence in README/HACKDAY_STATUS mixes Python package steps and multiple npm scripts; some steps (build:release, verify:release) are optional for a UI smoke review and make the demo path longer than necessary for teammate review.",
+              "fix": "Document a minimal 'quick local review' path (npm install && npm run pull:data && npm run serve) in README so reviewers can view the static dashboard quickly; keep full build instructions for release/validation."
+            },
+            {
+              "severity": "minor",
+              "area": "Snapshot resilience",
+              "finding": "renderEvidenceGraph assumes graph.nodes exists and attempts to find a candidate node; the code gracefully falls back to graph.nodes[0] but will fail if graph.nodes is empty or undefined.",
+              "fix": "Add an explicit guard: if (!graph.nodes || graph.nodes.length === 0) render a clear 'no graph nodes' message, avoiding any attempt to access nodes[0] when missing."
+            },
+            {
+              "severity": "minor",
+              "area": "Local server/URL guidance",
+              "finding": "README and status recommend opening http://127.0.0.1:8765 \u2014 that is sufficient, but README suggests creating a Python venv and installing Python dev extras that are not required to render the static dashboard for review.",
+              "fix": "Clarify README with two separate workflows: (A) Quick visual review: npm install && npm run serve and open the URL; (B) Full rebuild and integration checks with the longer Python + scripts sequence."
+            }
+          ],
+          "recommended_next_step": "Run a quick local smoke: npm install && npm run pull:data && npm run serve, open http://127.0.0.1:8765 and verify panels render. If Bright Data credential noise is distracting, update the status writer to deduplicate env entries and add an explanatory optional-token note. Optionally add a minimal quick-review section to README to speed teammate review.",
+          "response_id": "chatcmpl-ECXfSp0aHvxSRrAvyNPkWSgLH9Blb"
+        },
+        {
+          "id": "secrets_and_client_safety:gpt-5-mini",
+          "role_id": "secrets_and_client_safety",
+          "label": "Secrets and client safety",
+          "model_id": "gpt-5-mini",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "low",
+              "area": "Repository files / public data",
+              "finding": "All dashboard rendering is client-side and reads committed snapshot JSON and local data under public/ and data/. No API keys or secrets are present in the supplied repository evidence.",
+              "fix": "No immediate fix required. Continue to ensure .env and any runtime-only credential files remain in .gitignore and are never committed."
+            },
+            {
+              "severity": "low",
+              "area": "Bright Data integration",
+              "finding": "Bright Data is configured in .mcp.json and the status snapshot reports credential state as 'token_not_visible' / 'optional; not visible'. This is an expected demo state and not a secret exposure.",
+              "fix": "No fix required. Keep token aliases documented only for local setup and ensure tokens remain only in shell/.env at runtime (as described)."
+            },
+            {
+              "severity": "medium",
+              "area": "OpenAI usage",
+              "finding": "OpenAI is present in package.json dependencies and referenced by scripts (e.g., scripts/openai_agent_smoke.mjs and scripts/openai_redteam_fanout.mjs). The dashboard itself loads only static snapshot JSON; there is no evidence of direct client-side calls to OpenAI from public/app.js.",
+              "fix": "Protect runtime scripts that call OpenAI by ensuring they run only in local or server-side contexts. Confirm developers do not bundle node-only scripts into public/ assets. Keep OPENAI_API_KEY out of source control and in .env or runtime environment variables only."
+            },
+            {
+              "severity": "low",
+              "area": "Client-side JS",
+              "finding": "Public app.js fetches only ./data/dashboard_snapshot.json and renders committed artifacts (figures, assets). There are no dynamic third-party network calls or client-side credential usage in the shown code.",
+              "fix": "No fix required. If future features add remote calls from app.js, add explicit checks so client-side code never reads environment files and never transmits sensitive local files to remote endpoints."
+            },
+            {
+              "severity": "low",
+              "area": ".env and local-only token handling",
+              "finding": "README documents storing MCP/bearer tokens and OPENAI_API_KEY only in .env or shell and explicitly warns not to commit them. The evidence snapshot also indicates credentials are not published.",
+              "fix": "Ensure .gitignore includes .env, .custody-private/, and any other local credential paths. Consider adding a pre-commit hook that scans for common token patterns to reduce accidental commits."
+            },
+            {
+              "severity": "low",
+              "area": "Public artifact claims / data rights",
+              "finding": "Repository includes local copies of provider outputs and magicstudiobox artifacts under data/. The README and data_policy assert provider outputs and credentials are not relicensed and that redistribution is controlled by source/provider terms.",
+              "fix": "Maintain the current provenance metadata and receipts. If any provider output is removed from the bounded demo, document its redistribution rights explicitly before publishing externally."
+            }
+          ],
+          "recommended_next_step": "No blockers found. Recommended: (1) Verify .gitignore covers .env and any local credential/private-key folders (e.g., .custody-private). (2) Confirm node scripts that call OpenAI or Bright Data run only in local/server contexts and are not packaged into public/ assets. (3) Optionally add a lightweight pre-commit secret-scan rule to prevent accidental credential commits. After those checks, teammat",
+          "response_id": "chatcmpl-ECXfS233nCfAXJQ6wU7Wz46DmtMQe"
+        },
+        {
+          "id": "claim_ceiling_and_rights:gpt-5-mini",
+          "role_id": "claim_ceiling_and_rights",
+          "label": "Claim ceiling and rights",
+          "model_id": "gpt-5-mini",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "high",
+              "area": "Clinical/therapeutic claim ceiling",
+              "finding": "The repository and dashboard correctly document a firm claim ceiling (\"REPURPOSING_HYPOTHESIS / reproducible evidence workflow only\") and list prohibited clinical claims. However, UI text and some agent outputs (e.g. OpenAI agent output: \"OpenAI provides advanced language models that can assist...\") could be interpreted by non-expert viewers as implying clinical utility if not explicitly framed ev",
+              "fix": "Add an explicit, persistent UI disclaimer near any model-derived text and the evidence graph: state clearly that outputs are hypothesis-generating only, not clinical recommendations. Ensure any agent output panels include a visible badge: \"Not clinical advice \u2014 hypotheses only\" and avoid language that implies efficacy or treatment recommendation."
+            },
+            {
+              "severity": "high",
+              "area": "Provider output redistribution / usage rights",
+              "finding": "Data policy requires 'usage_rights_verified' metadata before publishing provider outputs. The dashboard includes local copies of MagicStudioBox and other provider-derived artifacts and a figure receipt, but snapshot entries do not show per-artifact 'usage_rights_verified' or explicit license/terms fields required by the Data Policy metadata block.",
+              "fix": "Attach the required metadata to each imported artifact record (public_data, contains_phi, access_restricted, usage_rights_verified, source, source_record_id, dataset_version, license_or_terms, retrieved_at, payload_sha256). Do not publish raw provider outputs until 'usage_rights_verified' is true; redact or summarize provider outputs when redistribution is not permitted."
+            },
+            {
+              "severity": "medium",
+              "area": "Evidence provenance transparency",
+              "finding": "Chain-of-custody design and receipts are present (Merkle receipt, tamper test, figure receipt) which supports reproducibility. However, some consumer-facing elements (e.g., overnight artifact listings, figure) present derived outputs without inline links to the minimal provenance metadata (who ran the job, command, exact input snapshot timestamps) that audit reviewers may need to reproduce results",
+              "fix": "Expose concise provenance fields in the dashboard next to each artifact/figure: command run, generator version + commit SHA, exact input file SHAs (already available in figure_receipt.source_files), retrieved_at timestamps and a minimal reproduce command. Link to custody/verify scripts from the UI."
+            },
+            {
+              "severity": "low",
+              "area": "Red-team output visibility",
+              "finding": "The OpenAI red-team panel intentionally renders an omitted status for the previous red-team output. The developer note says the current OpenAI red-team result is being generated now; omission is intentional and not a failure. Leaving 'omitted_for_current_review' without contextual guidance could confuse viewers about whether red-team review happened.",
+              "fix": "When red-team output is intentionally omitted, display a short explanatory note in the UI (e.g. 'Red-team review in progress \u2014 prior red-team outputs intentionally excluded to avoid self-review. Results will be published when available.'). Ensure final releases include red-team reviewer verdicts and findings inline or as linked artefacts once ready."
+            },
+            {
+              "severity": "low",
+              "area": "Credentials / token handling",
+              "finding": "Bright Data MCP reports 'token_not_visible' and credential_status 'optional; not visible'. The repo README and status explain tokens are read from environment or .env and not committed. No secrets are included in the snapshot \u2014 good practice.",
+              "fix": "No action required beyond continuing to avoid committing .env and showing the explicit 'not configured' state in the UI. Optionally add a brief UI hint explaining that 'token_not_visible' is expected for demo/local runs and does not indicate a dashboard failure."
+            }
+          ],
+          "recommended_next_step": "1) Add explicit, persistent UI disclaimer(s) that any model/provider outputs and the evidence graph are hypothesis-generating only and not clinical advice. 2) Augment artifact records with the full required Data Policy metadata (including usage_rights_verified and license_or_terms) before any public redistribution of provider outputs. 3) Surface minimal reproduce metadata (generator, command, comm",
+          "response_id": "chatcmpl-ECXfSqcE7OE8RbPavgWyr7qGThZq1"
+        },
+        {
+          "id": "live_dashboard_viability:gpt-5-nano",
+          "role_id": "live_dashboard_viability",
+          "label": "Live dashboard viability",
+          "model_id": "gpt-5-nano",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "medium",
+              "area": "Data load / rendering",
+              "finding": "Dashboard rendering relies on ./data/dashboard_snapshot.json. If the snapshot is missing or structure deviates from expected fields (biopharma.candidate_lanes, problem_statements, integrations, overnight, custody, etc.), rendering may throw or sections may be blank.",
+              "fix": "Ensure the snapshot at data/dashboard_snapshot.json is present and adheres to aws-biopharma.dashboard.v1 schema. Consider adding defensive guards in app.js to handle missing optional fields gracefully (default fallbacks and user-friendly messages)."
+            },
+            {
+              "severity": "low",
+              "area": "OpenAI red-team visibility",
+              "finding": "OpenAI Red Team is omitted_for_current_review in the payload. This is explicitly allowed and not a dashboard failure, but team review should be aware that the red-team surface is not currently rendered.",
+              "fix": "Document that the red-team surface is intentionally omitted in this snapshot and provide a separate access path or sample rendering in a staging snapshot if needed for reviewer completeness."
+            },
+            {
+              "severity": "low",
+              "area": "Bright Data integration",
+              "finding": "Bright Data credential is token_not_visible. The readme notes token aliases may be in environment/.env. This is a visible integration status, not a dashboard failure, and does not block rendering.",
+              "fix": "No code fix required; consider adding a small status note in the UI explaining that token values are intentionally hidden and how to configure locally if reviewers need to test integration flow."
+            },
+            {
+              "severity": "low",
+              "area": "Run instructions / local server",
+              "finding": "Run path is explicit in README and the static dashboard is served from public with a local HTTP server on port 8765. If reviewers run in a containerized or CI environment, ensure port exposure and static assets path remain consistent.",
+              "fix": "If adopting CI/local containers, provide an alternative npm-based serve script or a small dev server config to mirror the README steps in non-CLI environments."
+            },
+            {
+              "severity": "low",
+              "area": "Integration state surface completeness",
+              "finding": "Dashboard surfaces depend on several integrations (OpenAI agent, Bright Data, etc.). The pre-review snapshot indicates some integrations are present but may be partially configured (e.g., AWS_PROFILE/REGION not set in env). The UI shows statuses but some tool access may require additional auth steps to reveal full tool visibility.",
+              "fix": "Include a short status note in the Integration State panel clarifying required environment configuration for full tool visibility (e.g., MCP clients, MCP tokens)."
+            }
+          ],
+          "recommended_next_step": "Ensure data/dashboard_snapshot.json is present and matches the expected schema referenced by the dashboard JS (biopharma.dashboard.v1). If not, regenerate or adjust the render to handle missing keys gracefully.,If possible, provide a snapshot where the OpenAI Red Team section is populated (or clearly marked as intentionally omitted) to validate the render path for that surface.,Optionally add defe",
+          "response_id": "chatcmpl-ECXfSM6NcDKu3xDLnx4YhspXLhlqN"
+        },
+        {
+          "id": "secrets_and_client_safety:gpt-5-nano",
+          "role_id": "secrets_and_client_safety",
+          "label": "Secrets and client safety",
+          "model_id": "gpt-5-nano",
+          "completed": true,
+          "verdict": "pass",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "medium",
+              "area": "Secrets management",
+              "finding": "OPENAI_API_KEY is present in environment/config (per dashboard snapshot); value is not published in code. This is acceptable for local smoke agent, but ensure keys are never committed to the repo and are restricted to the runtime environment.",
+              "fix": "Do not commit API keys to version control. Store in environment-secured vault or .env consumed at runtime only; audit that build artifacts do not leak keys."
+            },
+            {
+              "severity": "low",
+              "area": "Provider credential visibility",
+              "finding": "Bright Data token status shows token_not_visible; credential_status is optional and not exposed in the shell. This aligns with the demo\u2019s privacy rules, but keep token management isolated from client-side code.",
+              "fix": "Maintain token aliases in server-side env or secure MCP config; ensure UI never renders actual tokens or secrets."
+            },
+            {
+              "severity": "low",
+              "area": "Client-side API usage",
+              "finding": "Front-end dashboard code fetches local snapshot data and renders UI; no secret tokens are embedded in public JS or HTML paths. OpenAI usage is described as server/local-side via Strands agent, not via browser.",
+              "fix": "Continue to validate that any provider API calls (OpenAI, Bright Data) originate from server-side components and that the public dashboard only consumes non-secret artifacts."
+            }
+          ],
+          "recommended_next_step": "Validate that all sensitive credentials (OPENAI_API_KEY, Bright Data tokens) are strictly used server-side and never embedded in client-side bundles. Add a simple legal/tech note to the dashboard to state secrets are kept out of public artifacts.,Perform a quick secret-scan on the repo to confirm no secrets exist in code or snapshots, and add a .gitignore rule for .env files if not already present",
+          "response_id": "chatcmpl-ECXfS8LNjAbzIlxhg2pWwR46lhcG2"
+        },
+        {
+          "id": "claim_ceiling_and_rights:gpt-5-nano",
+          "role_id": "claim_ceiling_and_rights",
+          "label": "Claim ceiling and rights",
+          "model_id": "gpt-5-nano",
+          "completed": true,
+          "verdict": "pass_with_notes",
+          "blockers": [],
+          "findings": [
+            {
+              "severity": "medium",
+              "area": "Clinical/therapeutic overclaim risk",
+              "finding": "Dashboard boundary and prose explicitly reject therapeutic efficacy and clinical utility claims, but the knowledge graph and problem statements could be interpreted as illustrating pathways toward clinical trial design or treatment observability responses. Risk of overclaiming exists if future iterations soften boundaries or add candidate results implying efficacy.",
+              "fix": "Maintain strict wording around boundary: ensure any future iterations keep the Prohibited / Unsupported Claims section prominent and prevent any visuals or copy that imply treatment efficacy or clinical utility. Include a labeled disclaimer near visualizations that patient-level impact is not claimed."
+            },
+            {
+              "severity": "medium",
+              "area": "Provider outputs redistribution / data-rights posture",
+              "finding": "Evidence shows provider outputs (e.g., Bright Data, Convoke, etc.) are treated as local-only with Redistribution Rights not automatically granted; the dashboard snapshot notes that outputs are not relicensed and rights must be verified. This is correct but relies on reviewer discipline to avoid redistributing raw outputs.",
+              "fix": "Reinforce on the UI and in documentation that provider outputs are shown only under verified redistribution rights and are not to be published broadly. Add a small footer note in dashboard stating redistribution rights must be verified per provider terms."
+            },
+            {
+              "severity": "low",
+              "area": "Bright Data integration status",
+              "finding": "Bright Data token is token_not_visible; the status is explicitly shown as optional and not a dashboard failure. This is consistent with the demo design but could invite confusion about access scope if presented to non-technical stakeholders.",
+              "fix": "Keep token_not_visible status with explicit labelling as optional. Consider a short tooltip clarifying token visibility and that no credentials are exposed in the UI."
+            },
+            {
+              "severity": "low",
+              "area": "Red-team staging / review traceability",
+              "finding": "OpenAI red-team output is omitted for current review (omitted_for_current_review). This is acceptable per repo guidance and does not block rendering, but it reduces transparency of the red-team posture for teammates.",
+              "fix": "Document the omission reason in a visible team note (not in secrets) and provide a placeholder status in the UI indicating red-team review is pending or intentionally omitted, to maintain reproducible evidence workflow."
+            }
+          ],
+          "recommended_next_step": "Preserve and clearly label the dashboard boundary to prevent any inference of clinical efficacy. Maintain the REPURPOSING_HYPOTHESIS / reproducible evidence workflow claim boundary in all future iterations.,Strengthen redistribution-rights governance in UI/documentation: add a concise note about local-use only and rights verification for provider outputs; avoid any redistribution beyond permitted ",
+          "response_id": "chatcmpl-ECXfRZrfxZKhra2vaddPRuxbNWtaw"
+        }
+      ],
+      "note": "OpenAI red-team model matrix found no blockers for teammate dashboard review."
     },
     "bright_data": {
       "schema": "aws-biopharma.brightdata-status.v1",
-      "generated_at": "2026-08-13T18:15:10.100Z",
+      "generated_at": "2026-08-13T21:54:19.926Z",
       "provider": "brightdata",
       "status": "token_not_visible",
       "package": "@brightdata/mcp",
       "package_version": "2.6.0",
       "mcp_server": "bright-data",
-      "token_present": false,
-      "token_env_name": null,
-      "token_length": 0,
+      "credential_status": "optional; not visible",
       "groups": "code",
       "note": "Bright Data MCP is configured, but no token alias is visible in this shell or .env."
     },
     "env": [
       {
-        "name": "OPENAI_API_KEY",
-        "present": true,
-        "length": 164
+        "name": "OpenAI API credential",
+        "state": "configured locally; value not published"
       },
       {
         "name": "AWS_PROFILE",
-        "present": false,
-        "length": 0
+        "state": "not configured"
       },
       {
         "name": "AWS_REGION",
-        "present": false,
-        "length": 0
+        "state": "not configured"
       },
       {
-        "name": "CONVOKE_MCP_TOKEN",
-        "present": false,
-        "length": 0
+        "name": "Convoke MCP credential",
+        "state": "not configured"
       },
       {
-        "name": "BRIGHTDATA_API_KEY",
-        "present": false,
-        "length": 0
+        "name": "Bright Data credential",
+        "state": "not configured"
       },
       {
-        "name": "BRIGHT_DATA_API_KEY",
-        "present": false,
-        "length": 0
+        "name": "Bright Data credential",
+        "state": "not configured"
       },
       {
-        "name": "BRIGHTDATA_TOKEN",
-        "present": false,
-        "length": 0
+        "name": "Bright Data credential",
+        "state": "not configured"
       },
       {
-        "name": "BRIGHT_DATA_TOKEN",
-        "present": false,
-        "length": 0
+        "name": "Bright Data credential",
+        "state": "not configured"
       }
     ]
   },

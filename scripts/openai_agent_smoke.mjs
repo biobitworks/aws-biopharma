@@ -59,7 +59,6 @@ if (!apiKeyPresent) {
     status: 'not_configured',
     provider: 'openai',
     model_id: modelId,
-    api_key_present: false,
     note: 'OPENAI_API_KEY is not present in the shell environment or .env.',
   })
   process.exit(1)
@@ -84,7 +83,6 @@ try {
     status: 'pass',
     provider: 'openai',
     model_id: modelId,
-    api_key_present: true,
     stop_reason: result.stopReason,
     output: textFromMessage(result.lastMessage),
   })
@@ -93,10 +91,8 @@ try {
     status: 'fail',
     provider: 'openai',
     model_id: modelId,
-    api_key_present: true,
     error_type: error?.constructor?.name || 'Error',
     error: String(error?.message || error).slice(0, 500),
   })
   process.exit(1)
 }
-
