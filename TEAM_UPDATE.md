@@ -31,6 +31,7 @@ cd /Users/byron/projects/active/aws-biopharma
 npm install
 npm run agent:openai
 npm run status:brightdata
+npm run build:figures
 npm run pull:data
 npm run serve
 ```
@@ -45,6 +46,8 @@ npm run serve
   outputs as local-only/redacted until usage rights are verified.
 - Conversation custody is represented through status files, handoffs, hashes,
   receipts, and Git commits; raw private chat text is not published.
+- Figures are rebuilt from source artifacts with FCG/FCO receipts; do not edit
+  judge-facing figures by hand.
 
 ## Immediate Assignments
 

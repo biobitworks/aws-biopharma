@@ -33,6 +33,8 @@ BRIGHTDATA_ENV_NAMES = [
     "BRIGHTDATA_TOKEN",
     "BRIGHT_DATA_TOKEN",
 ]
+EVIDENCE_GRAPH = ROOT / "data/magicstudiobox/runs/primary/similar_drug_evidence_graph.json"
+FIGURE_RECEIPT = ROOT / "data/figures/fcg_perturbation_star_chart.receipt.json"
 OVERNIGHT_ARTIFACTS = [
     ROOT / "data/magicstudiobox/runs/primary/repurposing_evidence_table.csv",
     ROOT / "data/magicstudiobox/runs/primary/clinical_progress.csv",
@@ -274,6 +276,52 @@ def summarize_custody_design() -> dict[str, object]:
     }
 
 
+def summarize_evidence_graph() -> dict[str, object]:
+    payload = read_json(EVIDENCE_GRAPH)
+    if not isinstance(payload, list):
+        return {
+            "status": "not_found",
+            "path": str(EVIDENCE_GRAPH.relative_to(ROOT)),
+            "nodes": [],
+            "edges": [],
+        }
+
+    nodes: dict[str, dict[str, object]] = {}
+    edges: list[dict[str, object]] = []
+    for row in payload:
+        if not isinstance(row, dict):
+            continue
+        subject = str(row.get("subject") or "")
+        obj = str(row.get("object") or "")
+        predicate = str(row.get("predicate") or "")
+        if not subject or not obj or not predicate:
+            continue
+        nodes.setdefault(subject, {"id": subject, "label": subject.split("|")[0], "kind": "candidate"})
+        kind = "drug" if predicate == "CLINICALLY_ADJACENT" else "evidence"
+        nodes.setdefault(obj, {"id": obj, "label": obj, "kind": kind})
+        edges.append(
+            {
+                "source": subject,
+                "target": obj,
+                "predicate": predicate,
+                "status": row.get("evidence_status") or "",
+                "method": row.get("method") or "",
+                "value": row.get("value") or "",
+            }
+        )
+
+    return {
+        "status": "included",
+        "path": str(EVIDENCE_GRAPH.relative_to(ROOT)),
+        "figure": "assets/fcg_perturbation_star_chart.svg",
+        "figure_receipt": read_json(FIGURE_RECEIPT),
+        "node_count": len(nodes),
+        "edge_count": len(edges),
+        "nodes": list(nodes.values()),
+        "edges": edges,
+    }
+
+
 def main() -> int:
     LOCAL_DATA.mkdir(parents=True, exist_ok=True)
     PUBLIC_DATA.mkdir(parents=True, exist_ok=True)
@@ -383,6 +431,7 @@ def main() -> int:
         },
         "overnight": summarize_overnight_artifacts(),
         "custody": summarize_custody_design(),
+        "evidence_graph": summarize_evidence_graph(),
     }
 
     out = LOCAL_DATA / "dashboard_snapshot.json"

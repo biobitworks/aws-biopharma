@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">FCG perturbation evidence star chart</title>
+  <desc id="desc">Deterministic star chart from MagicStudioBox evidence graph, final metrics, Merkle receipt, and tamper test.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f8fb; }
+      .frame { fill: #ffffff; stroke: #d8dde6; stroke-width: 1.5; }
+      .title { fill: #111827; font: 700 28px Inter, Arial, sans-serif; }
+      .subtitle { fill: #5b6472; font: 15px Inter, Arial, sans-serif; }
+      .label { fill: #111827; font: 700 13px Inter, Arial, sans-serif; text-anchor: middle; }
+      .small { fill: #5b6472; font: 12px Inter, Arial, sans-serif; }
+      .node { stroke: #ffffff; stroke-width: 4; }
+      .candidate { fill: #136f63; }
+      .comparator { fill: #7c3f12; }
+      .mechanism { fill: #51617a; }
+      .edge { stroke-linecap: round; opacity: 0.82; }
+      .mechanism-edge { stroke: #136f63; stroke-width: 2.6; }
+      .adjacent-edge { stroke: #98a2b3; stroke-width: 1.5; stroke-dasharray: 6 6; }
+      .receipt { fill: #101826; }
+      .receipt-text { fill: #ecfdf5; font: 12px "SFMono-Regular", Consolas, monospace; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="760" />
+  <rect class="frame" x="28" y="26" width="1144" height="708" rx="10" />
+  <text x="56" y="72" class="title">FCG perturbation evidence star chart</text>
+  <text x="56" y="101" class="subtitle">Center: desonide. Spokes: mechanism-similar and clinically-adjacent evidence nodes.</text>
+  <g id="edges">
+    <line x1="600.0" y1="355.0" x2="304.4" y2="477.5" class="edge adjacent-edge" />
+<line x1="600.0" y1="355.0" x2="373.7" y2="128.7" class="edge adjacent-edge" />
+<line x1="600.0" y1="355.0" x2="304.4" y2="477.5" class="edge mechanism-edge" />
+<line x1="600.0" y1="355.0" x2="373.7" y2="128.7" class="edge mechanism-edge" />
+<line x1="600.0" y1="355.0" x2="895.6" y2="232.5" class="edge adjacent-edge" />
+<line x1="600.0" y1="355.0" x2="280.0" y2="355.0" class="edge adjacent-edge" />
+<line x1="600.0" y1="355.0" x2="895.6" y2="477.5" class="edge adjacent-edge" />
+<line x1="600.0" y1="35.0" x2="722.5" y2="650.6" class="edge adjacent-edge" />
+<line x1="600.0" y1="35.0" x2="600.0" y2="675.0" class="edge adjacent-edge" />
+<line x1="600.0" y1="35.0" x2="477.5" y2="650.6" class="edge adjacent-edge" />
+<line x1="600.0" y1="35.0" x2="304.4" y2="232.5" class="edge adjacent-edge" />
+<line x1="600.0" y1="35.0" x2="722.5" y2="650.6" class="edge mechanism-edge" />
+<line x1="600.0" y1="35.0" x2="600.0" y2="675.0" class="edge mechanism-edge" />
+<line x1="600.0" y1="35.0" x2="477.5" y2="650.6" class="edge mechanism-edge" />
+<line x1="600.0" y1="35.0" x2="304.4" y2="232.5" class="edge mechanism-edge" />
+<line x1="600.0" y1="35.0" x2="895.6" y2="232.5" class="edge adjacent-edge" />
+<line x1="600.0" y1="35.0" x2="280.0" y2="355.0" class="edge adjacent-edge" />
+<line x1="600.0" y1="35.0" x2="920.0" y2="355.0" class="edge adjacent-edge" />
+<line x1="722.5" y1="59.4" x2="826.3" y2="581.3" class="edge adjacent-edge" />
+<line x1="722.5" y1="59.4" x2="373.7" y2="581.3" class="edge adjacent-edge" />
+<line x1="722.5" y1="59.4" x2="477.5" y2="59.4" class="edge adjacent-edge" />
+<line x1="722.5" y1="59.4" x2="826.3" y2="581.3" class="edge mechanism-edge" />
+<line x1="722.5" y1="59.4" x2="373.7" y2="581.3" class="edge mechanism-edge" />
+<line x1="722.5" y1="59.4" x2="477.5" y2="59.4" class="edge mechanism-edge" />
+<line x1="722.5" y1="59.4" x2="895.6" y2="232.5" class="edge adjacent-edge" />
+<line x1="722.5" y1="59.4" x2="280.0" y2="355.0" class="edge adjacent-edge" />
+<line x1="722.5" y1="59.4" x2="826.3" y2="128.7" class="edge adjacent-edge" />
+  </g>
+  <g id="nodes">
+    <circle cx="600.0" cy="355.0" r="50" class="node candidate" />
+<text x="600.0" y="427.0" class="label">SirReal-2</text>
+<circle cx="600.0" cy="35.0" r="50" class="node candidate" />
+<text x="600.0" y="107.0" class="label">desonide</text>
+<circle cx="722.5" cy="59.4" r="50" class="node candidate" />
+<text x="722.5" y="131.4" class="label">leflunomide</text>
+<circle cx="826.3" cy="128.7" r="28" class="node mechanism" />
+<text x="826.3" y="178.7" class="label">AHR</text>
+<circle cx="895.6" cy="232.5" r="28" class="node mechanism" />
+<text x="895.6" y="282.5" class="label">COMT ORF shifted state</text>
+<circle cx="920.0" cy="355.0" r="28" class="node mechanism" />
+<text x="920.0" y="405.0" class="label">NR3C1</text>
+<circle cx="895.6" cy="477.5" r="28" class="node mechanism" />
+<text x="895.6" y="527.5" class="label">SIRT2</text>
+<circle cx="826.3" cy="581.3" r="28" class="node mechanism" />
+<text x="826.3" y="631.3" class="label">azathioprine</text>
+<circle cx="722.5" cy="650.6" r="28" class="node mechanism" />
+<text x="722.5" y="700.6" class="label">budesonide</text>
+<circle cx="600.0" cy="675.0" r="28" class="node mechanism" />
+<text x="600.0" y="725.0" class="label">dexamethasone</text>
+<circle cx="477.5" cy="650.6" r="28" class="node mechanism" />
+<text x="477.5" y="700.6" class="label">hydrocortisone</text>
+<circle cx="373.7" cy="581.3" r="28" class="node mechanism" />
+<text x="373.7" y="631.3" class="label">methotrexate</text>
+<circle cx="304.4" cy="477.5" r="28" class="node mechanism" />
+<text x="304.4" y="527.5" class="label">nicotinamide</text>
+<circle cx="280.0" cy="355.0" r="28" class="node mechanism" />
+<text x="280.0" y="405.0" class="label">not_computed</text>
+<circle cx="304.4" cy="232.5" r="28" class="node mechanism" />
+<text x="304.4" y="282.5" class="label">prednisone</text>
+<circle cx="373.7" cy="128.7" r="28" class="node mechanism" />
+<text x="373.7" y="178.7" class="label">sirtinol</text>
+<circle cx="477.5" cy="59.4" r="28" class="node mechanism" />
+<text x="477.5" y="109.4" class="label">teriflunomide</text>
+  </g>
+  <g id="legend">
+    <circle cx="76" cy="660" r="9" class="node candidate" />
+    <text x="94" y="664" class="small">candidate</text>
+    <circle cx="190" cy="660" r="9" class="node comparator" />
+    <text x="208" y="664" class="small">clinically adjacent comparator</text>
+    <circle cx="410" cy="660" r="9" class="node mechanism" />
+    <text x="428" y="664" class="small">mechanism/evidence node</text>
+  </g>
+  <rect class="receipt" x="56" y="686" width="1088" height="42" rx="6" />
+  <text x="72" y="711" class="receipt-text">claim=REPURPOSING_HYPOTHESIS | merkle=aca0d6dea376b792342cd98a | tamper=recorded | source=similar_drug_evidence_graph.json</text>
+</svg>

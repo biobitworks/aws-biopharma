@@ -6,6 +6,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "agent:openai": "node scripts/openai_agent_smoke.mjs",
+    "build:figures": "python3 scripts/generate_figures.py",
     "status:brightdata": "node scripts/brightdata_status.mjs",
     "pull:data": "python3 scripts/pull_data.py",
     "serve": "python3 -m http.server 8765 -d public"

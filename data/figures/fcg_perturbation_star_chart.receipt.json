@@ -1,0 +1,34 @@
+{
+  "determinism": {
+    "claim_ceiling": "source-derived, no clinical efficacy claim",
+    "layout": "fixed radial star chart sorted by node id and edge tuple",
+    "volatile_fields": "none"
+  },
+  "figure": "public/assets/fcg_perturbation_star_chart.svg",
+  "figure_sha256": "e23b2ae5d5f2a729d3cdffca556e48a5da7f362ac312cff71e6a88794c85cbdb",
+  "generator": "scripts/generate_figures.py",
+  "generator_sha256": "94e5012a17033d539522e6fee8b22c809b2cbc87059e26f1d4d93b63948deafc",
+  "schema": "aws-biopharma.figure-receipt.v1",
+  "source_files": [
+    {
+      "bytes": 11331,
+      "path": "data/magicstudiobox/runs/primary/similar_drug_evidence_graph.json",
+      "sha256": "561be3392cd6fcc9072de24f67a7792d12a64cde3c32226818a7800ce885cd25"
+    },
+    {
+      "bytes": 342,
+      "path": "data/magicstudiobox/deliverables/FINAL_METRICS.json",
+      "sha256": "8721cb2b30ff794771d625411ab8b02298fe878dd4a97f63ec96bfc1dd8f4444"
+    },
+    {
+      "bytes": 581,
+      "path": "data/magicstudiobox/runs/primary/merkle_receipt.json",
+      "sha256": "aa333f29dd45ab3f9b5eba2c4cbe10edafeaffedbc6f3a447281591fbd0d84b7"
+    },
+    {
+      "bytes": 425,
+      "path": "data/magicstudiobox/runs/primary/tamper_test.json",
+      "sha256": "1732f154fa660a4504d1b34bcbd851286a904a92e6657057e64b80beb1cb0c55"
+    }
+  ]
+}

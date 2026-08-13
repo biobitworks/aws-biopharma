@@ -1,6 +1,6 @@
 {
   "schema": "aws-biopharma.dashboard.v1",
-  "generated_at": "2026-08-13T19:31:57.819375+00:00",
+  "generated_at": "2026-08-13T19:40:19.499552+00:00",
   "project": {
     "name": "AWS Biopharma Hack Day",
     "path": "/Users/byron/projects/active/aws-biopharma",
@@ -408,6 +408,352 @@
       "data/magicstudiobox/deliverables/FINAL_METRICS.json",
       "HACKDAY_STATUS.md",
       "TEAM_UPDATE.md"
+    ]
+  },
+  "evidence_graph": {
+    "status": "included",
+    "path": "data/magicstudiobox/runs/primary/similar_drug_evidence_graph.json",
+    "figure": "assets/fcg_perturbation_star_chart.svg",
+    "figure_receipt": {
+      "determinism": {
+        "claim_ceiling": "source-derived, no clinical efficacy claim",
+        "layout": "fixed radial star chart sorted by node id and edge tuple",
+        "volatile_fields": "none"
+      },
+      "figure": "public/assets/fcg_perturbation_star_chart.svg",
+      "figure_sha256": "e23b2ae5d5f2a729d3cdffca556e48a5da7f362ac312cff71e6a88794c85cbdb",
+      "generator": "scripts/generate_figures.py",
+      "generator_sha256": "94e5012a17033d539522e6fee8b22c809b2cbc87059e26f1d4d93b63948deafc",
+      "schema": "aws-biopharma.figure-receipt.v1",
+      "source_files": [
+        {
+          "bytes": 11331,
+          "path": "data/magicstudiobox/runs/primary/similar_drug_evidence_graph.json",
+          "sha256": "561be3392cd6fcc9072de24f67a7792d12a64cde3c32226818a7800ce885cd25"
+        },
+        {
+          "bytes": 342,
+          "path": "data/magicstudiobox/deliverables/FINAL_METRICS.json",
+          "sha256": "8721cb2b30ff794771d625411ab8b02298fe878dd4a97f63ec96bfc1dd8f4444"
+        },
+        {
+          "bytes": 581,
+          "path": "data/magicstudiobox/runs/primary/merkle_receipt.json",
+          "sha256": "aa333f29dd45ab3f9b5eba2c4cbe10edafeaffedbc6f3a447281591fbd0d84b7"
+        },
+        {
+          "bytes": 425,
+          "path": "data/magicstudiobox/runs/primary/tamper_test.json",
+          "sha256": "1732f154fa660a4504d1b34bcbd851286a904a92e6657057e64b80beb1cb0c55"
+        }
+      ]
+    },
+    "node_count": 17,
+    "edge_count": 27,
+    "nodes": [
+      {
+        "id": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "label": "desonide",
+        "kind": "candidate"
+      },
+      {
+        "id": "hydrocortisone",
+        "label": "hydrocortisone",
+        "kind": "evidence"
+      },
+      {
+        "id": "dexamethasone",
+        "label": "dexamethasone",
+        "kind": "evidence"
+      },
+      {
+        "id": "budesonide",
+        "label": "budesonide",
+        "kind": "evidence"
+      },
+      {
+        "id": "prednisone",
+        "label": "prednisone",
+        "kind": "evidence"
+      },
+      {
+        "id": "COMT ORF shifted state",
+        "label": "COMT ORF shifted state",
+        "kind": "evidence"
+      },
+      {
+        "id": "not_computed",
+        "label": "not_computed",
+        "kind": "evidence"
+      },
+      {
+        "id": "NR3C1|PLA2G1B",
+        "label": "NR3C1|PLA2G1B",
+        "kind": "evidence"
+      },
+      {
+        "id": "leflunomide|PTK2B|BRD-K78692225-001-24-5",
+        "label": "leflunomide",
+        "kind": "candidate"
+      },
+      {
+        "id": "teriflunomide",
+        "label": "teriflunomide",
+        "kind": "evidence"
+      },
+      {
+        "id": "methotrexate",
+        "label": "methotrexate",
+        "kind": "evidence"
+      },
+      {
+        "id": "azathioprine",
+        "label": "azathioprine",
+        "kind": "evidence"
+      },
+      {
+        "id": "AHR|DHODH|PTK2B",
+        "label": "AHR|DHODH|PTK2B",
+        "kind": "evidence"
+      },
+      {
+        "id": "SirReal-2|SIRT2|BRD-K16472653-001-01-6",
+        "label": "SirReal-2",
+        "kind": "candidate"
+      },
+      {
+        "id": "sirtinol",
+        "label": "sirtinol",
+        "kind": "evidence"
+      },
+      {
+        "id": "nicotinamide",
+        "label": "nicotinamide",
+        "kind": "evidence"
+      },
+      {
+        "id": "SIRT2",
+        "label": "SIRT2",
+        "kind": "evidence"
+      }
+    ],
+    "edges": [
+      {
+        "source": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "target": "hydrocortisone",
+        "predicate": "MECHANISM_SIMILAR",
+        "status": "bounded_local_map",
+        "method": "curated tiny public-mechanism map from CPJUMP1 target_list",
+        "value": "glucocorticoid receptor signaling|phospholipase / lipid mediator biology"
+      },
+      {
+        "source": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "target": "hydrocortisone",
+        "predicate": "CLINICALLY_ADJACENT",
+        "status": "requires_trial_lookup",
+        "method": "same or adjacent drug class comparator list",
+        "value": ""
+      },
+      {
+        "source": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "target": "dexamethasone",
+        "predicate": "MECHANISM_SIMILAR",
+        "status": "bounded_local_map",
+        "method": "curated tiny public-mechanism map from CPJUMP1 target_list",
+        "value": "glucocorticoid receptor signaling|phospholipase / lipid mediator biology"
+      },
+      {
+        "source": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "target": "dexamethasone",
+        "predicate": "CLINICALLY_ADJACENT",
+        "status": "requires_trial_lookup",
+        "method": "same or adjacent drug class comparator list",
+        "value": ""
+      },
+      {
+        "source": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "target": "budesonide",
+        "predicate": "MECHANISM_SIMILAR",
+        "status": "bounded_local_map",
+        "method": "curated tiny public-mechanism map from CPJUMP1 target_list",
+        "value": "glucocorticoid receptor signaling|phospholipase / lipid mediator biology"
+      },
+      {
+        "source": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "target": "budesonide",
+        "predicate": "CLINICALLY_ADJACENT",
+        "status": "requires_trial_lookup",
+        "method": "same or adjacent drug class comparator list",
+        "value": ""
+      },
+      {
+        "source": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "target": "prednisone",
+        "predicate": "MECHANISM_SIMILAR",
+        "status": "bounded_local_map",
+        "method": "curated tiny public-mechanism map from CPJUMP1 target_list",
+        "value": "glucocorticoid receptor signaling|phospholipase / lipid mediator biology"
+      },
+      {
+        "source": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "target": "prednisone",
+        "predicate": "CLINICALLY_ADJACENT",
+        "status": "requires_trial_lookup",
+        "method": "same or adjacent drug class comparator list",
+        "value": ""
+      },
+      {
+        "source": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "target": "COMT ORF shifted state",
+        "predicate": "PHENOTYPE_SIMILAR",
+        "status": "computed",
+        "method": "CPJUMP1 morphology reference-distance ranking",
+        "value": 0.5004939964057833
+      },
+      {
+        "source": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "target": "not_computed",
+        "predicate": "STRUCTURALLY_SIMILAR",
+        "status": "not_computed",
+        "method": "not run; no RDKit/fingerprint dependency installed unattended",
+        "value": ""
+      },
+      {
+        "source": "desonide|PLA2G1B|BRD-K21528677-001-04-4",
+        "target": "NR3C1|PLA2G1B",
+        "predicate": "TARGET_SIMILAR",
+        "status": "metadata_present",
+        "method": "CPJUMP1 target_list extraction",
+        "value": 2
+      },
+      {
+        "source": "leflunomide|PTK2B|BRD-K78692225-001-24-5",
+        "target": "teriflunomide",
+        "predicate": "MECHANISM_SIMILAR",
+        "status": "bounded_local_map",
+        "method": "curated tiny public-mechanism map from CPJUMP1 target_list",
+        "value": "focal adhesion / tyrosine kinase signaling|pyrimidine biosynthesis / immunomodulation"
+      },
+      {
+        "source": "leflunomide|PTK2B|BRD-K78692225-001-24-5",
+        "target": "teriflunomide",
+        "predicate": "CLINICALLY_ADJACENT",
+        "status": "requires_trial_lookup",
+        "method": "same or adjacent drug class comparator list",
+        "value": ""
+      },
+      {
+        "source": "leflunomide|PTK2B|BRD-K78692225-001-24-5",
+        "target": "methotrexate",
+        "predicate": "MECHANISM_SIMILAR",
+        "status": "bounded_local_map",
+        "method": "curated tiny public-mechanism map from CPJUMP1 target_list",
+        "value": "focal adhesion / tyrosine kinase signaling|pyrimidine biosynthesis / immunomodulation"
+      },
+      {
+        "source": "leflunomide|PTK2B|BRD-K78692225-001-24-5",
+        "target": "methotrexate",
+        "predicate": "CLINICALLY_ADJACENT",
+        "status": "requires_trial_lookup",
+        "method": "same or adjacent drug class comparator list",
+        "value": ""
+      },
+      {
+        "source": "leflunomide|PTK2B|BRD-K78692225-001-24-5",
+        "target": "azathioprine",
+        "predicate": "MECHANISM_SIMILAR",
+        "status": "bounded_local_map",
+        "method": "curated tiny public-mechanism map from CPJUMP1 target_list",
+        "value": "focal adhesion / tyrosine kinase signaling|pyrimidine biosynthesis / immunomodulation"
+      },
+      {
+        "source": "leflunomide|PTK2B|BRD-K78692225-001-24-5",
+        "target": "azathioprine",
+        "predicate": "CLINICALLY_ADJACENT",
+        "status": "requires_trial_lookup",
+        "method": "same or adjacent drug class comparator list",
+        "value": ""
+      },
+      {
+        "source": "leflunomide|PTK2B|BRD-K78692225-001-24-5",
+        "target": "COMT ORF shifted state",
+        "predicate": "PHENOTYPE_SIMILAR",
+        "status": "computed",
+        "method": "CPJUMP1 morphology reference-distance ranking",
+        "value": 0.4912703124073587
+      },
+      {
+        "source": "leflunomide|PTK2B|BRD-K78692225-001-24-5",
+        "target": "not_computed",
+        "predicate": "STRUCTURALLY_SIMILAR",
+        "status": "not_computed",
+        "method": "not run; no RDKit/fingerprint dependency installed unattended",
+        "value": ""
+      },
+      {
+        "source": "leflunomide|PTK2B|BRD-K78692225-001-24-5",
+        "target": "AHR|DHODH|PTK2B",
+        "predicate": "TARGET_SIMILAR",
+        "status": "metadata_present",
+        "method": "CPJUMP1 target_list extraction",
+        "value": 3
+      },
+      {
+        "source": "SirReal-2|SIRT2|BRD-K16472653-001-01-6",
+        "target": "sirtinol",
+        "predicate": "MECHANISM_SIMILAR",
+        "status": "bounded_local_map",
+        "method": "curated tiny public-mechanism map from CPJUMP1 target_list",
+        "value": "sirtuin deacetylase biology"
+      },
+      {
+        "source": "SirReal-2|SIRT2|BRD-K16472653-001-01-6",
+        "target": "sirtinol",
+        "predicate": "CLINICALLY_ADJACENT",
+        "status": "requires_trial_lookup",
+        "method": "same or adjacent drug class comparator list",
+        "value": ""
+      },
+      {
+        "source": "SirReal-2|SIRT2|BRD-K16472653-001-01-6",
+        "target": "nicotinamide",
+        "predicate": "MECHANISM_SIMILAR",
+        "status": "bounded_local_map",
+        "method": "curated tiny public-mechanism map from CPJUMP1 target_list",
+        "value": "sirtuin deacetylase biology"
+      },
+      {
+        "source": "SirReal-2|SIRT2|BRD-K16472653-001-01-6",
+        "target": "nicotinamide",
+        "predicate": "CLINICALLY_ADJACENT",
+        "status": "requires_trial_lookup",
+        "method": "same or adjacent drug class comparator list",
+        "value": ""
+      },
+      {
+        "source": "SirReal-2|SIRT2|BRD-K16472653-001-01-6",
+        "target": "COMT ORF shifted state",
+        "predicate": "PHENOTYPE_SIMILAR",
+        "status": "computed",
+        "method": "CPJUMP1 morphology reference-distance ranking",
+        "value": 0.4867424170670386
+      },
+      {
+        "source": "SirReal-2|SIRT2|BRD-K16472653-001-01-6",
+        "target": "not_computed",
+        "predicate": "STRUCTURALLY_SIMILAR",
+        "status": "not_computed",
+        "method": "not run; no RDKit/fingerprint dependency installed unattended",
+        "value": ""
+      },
+      {
+        "source": "SirReal-2|SIRT2|BRD-K16472653-001-01-6",
+        "target": "SIRT2",
+        "predicate": "TARGET_SIMILAR",
+        "status": "metadata_present",
+        "method": "CPJUMP1 target_list extraction",
+        "value": 1
+      }
     ]
   }
 }

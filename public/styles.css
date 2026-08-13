@@ -250,6 +250,83 @@ code {
   overflow-wrap: anywhere;
 }
 
+.kg-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.kg-svg {
+  width: 100%;
+  min-height: 360px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfd;
+}
+
+.kg-figure {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfd;
+}
+
+.kg-edge,
+.kg-edge-strong {
+  stroke: #98a2b3;
+  stroke-width: 1.5;
+}
+
+.kg-edge-strong {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+}
+
+.kg-node circle {
+  stroke: #ffffff;
+  stroke-width: 3;
+}
+
+.kg-node text {
+  fill: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.kg-candidate {
+  fill: #136f63;
+}
+
+.kg-drug {
+  fill: #7c3f12;
+}
+
+.kg-evidence {
+  fill: #51617a;
+}
+
+.kg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.kg-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 .doc-row a {
   color: var(--accent);
   font-weight: 700;

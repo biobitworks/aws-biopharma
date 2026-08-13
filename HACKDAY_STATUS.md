@@ -24,6 +24,8 @@
 - MagicStudioBox overnight outputs are included under `data/magicstudiobox/`.
 - Chain-of-custody design is documented in `CHAIN_OF_CUSTODY_DESIGN.md` and
   rendered in the dashboard snapshot.
+- FCG perturbation star chart is generated repeatably from committed artifacts
+  with `npm run build:figures`.
 
 ## Exact Demo Path
 
@@ -32,6 +34,7 @@ cd /Users/byron/projects/active/aws-biopharma
 npm install
 npm run agent:openai
 npm run status:brightdata
+npm run build:figures
 npm run pull:data
 npm run serve
 ```
@@ -76,6 +79,8 @@ http://127.0.0.1:8765
   commits, not by publishing raw private chat text.
 - Claim ceiling remains `REPURPOSING_HYPOTHESIS / reproducible evidence
   workflow only`.
+- Figure receipt:
+  `data/figures/fcg_perturbation_star_chart.receipt.json`.
 
 ## Team Split
 

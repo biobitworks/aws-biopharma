@@ -133,6 +133,103 @@ function renderOvernightData(overnight) {
     });
 }
 
+function renderEvidenceGraph(graph) {
+  const target = document.getElementById("evidenceGraph");
+  target.innerHTML = "";
+  if (!graph || graph.status !== "included") {
+    const p = document.createElement("p");
+    p.textContent = "Evidence graph not available in the current snapshot.";
+    target.appendChild(p);
+    return;
+  }
+
+  const summary = document.createElement("p");
+  summary.className = "artifact-boundary";
+  const figureHash = graph.figure_receipt ? graph.figure_receipt.figure_sha256.slice(0, 12) : "not built";
+  summary.textContent = `${graph.node_count} nodes, ${graph.edge_count} edges from ${graph.path}; figure sha256 ${figureHash}`;
+  target.appendChild(summary);
+
+  if (graph.figure) {
+    const figure = document.createElement("img");
+    figure.className = "kg-figure";
+    figure.src = graph.figure;
+    figure.alt = "FCG perturbation evidence star chart";
+    target.appendChild(figure);
+    return;
+  }
+
+  const width = 980;
+  const height = 420;
+  const centerX = width / 2;
+  const centerY = height / 2;
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.setAttribute("role", "img");
+  svg.setAttribute("aria-label", "Knowledge graph showing candidate, adjacent drugs, mechanisms, and evidence status");
+  svg.classList.add("kg-svg");
+
+  const candidate = graph.nodes.find((node) => node.kind === "candidate") || graph.nodes[0];
+  const otherNodes = graph.nodes.filter((node) => node.id !== candidate.id);
+  const positions = new Map();
+  positions.set(candidate.id, { x: centerX, y: centerY });
+  otherNodes.forEach((node, index) => {
+    const angle = (-Math.PI / 2) + (index / Math.max(otherNodes.length, 1)) * Math.PI * 2;
+    const radius = node.kind === "drug" ? 155 : 195;
+    positions.set(node.id, {
+      x: centerX + Math.cos(angle) * radius,
+      y: centerY + Math.sin(angle) * radius,
+    });
+  });
+
+  graph.edges.forEach((edge) => {
+    const source = positions.get(edge.source);
+    const targetPos = positions.get(edge.target);
+    if (!source || !targetPos) return;
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("x1", source.x);
+    line.setAttribute("y1", source.y);
+    line.setAttribute("x2", targetPos.x);
+    line.setAttribute("y2", targetPos.y);
+    line.classList.add(edge.predicate === "MECHANISM_SIMILAR" ? "kg-edge-strong" : "kg-edge");
+    svg.appendChild(line);
+  });
+
+  graph.nodes.forEach((node) => {
+    const pos = positions.get(node.id);
+    if (!pos) return;
+    const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    group.classList.add("kg-node");
+
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", pos.x);
+    circle.setAttribute("cy", pos.y);
+    circle.setAttribute("r", node.kind === "candidate" ? 42 : 24);
+    circle.classList.add(`kg-${node.kind}`);
+
+    const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    label.setAttribute("x", pos.x);
+    label.setAttribute("y", pos.y + (node.kind === "candidate" ? 58 : 40));
+    label.textContent = node.label;
+
+    group.append(circle, label);
+    svg.appendChild(group);
+  });
+
+  const legend = document.createElement("div");
+  legend.className = "kg-legend";
+  [
+    ["candidate", "Top candidate"],
+    ["drug", "Adjacent comparator"],
+    ["evidence", "Mechanism/evidence node"],
+  ].forEach(([kind, label]) => {
+    const item = document.createElement("span");
+    item.innerHTML = `<b class="legend-dot kg-${kind}"></b>${label}`;
+    legend.appendChild(item);
+  });
+
+  target.append(svg, legend);
+}
+
 function renderCustody(custody) {
   const target = document.getElementById("custodyDesign");
   target.innerHTML = "";
@@ -223,6 +320,7 @@ loadSnapshot()
     renderIntegrations(snapshot.integrations.env);
     renderOpenAIAgent(snapshot.integrations.openai_agent);
     renderBrightData(snapshot.integrations.bright_data);
+    renderEvidenceGraph(snapshot.evidence_graph);
     renderOvernightData(snapshot.overnight);
     renderCustody(snapshot.custody);
     renderProblems(snapshot);

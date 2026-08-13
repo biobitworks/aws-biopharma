@@ -32,6 +32,7 @@ pip install -e ".[dev]"
 npm install
 npm run agent:openai
 npm run status:brightdata
+npm run build:figures
 npm run pull:data
 npm run serve
 ```
@@ -67,6 +68,16 @@ The dashboard lists included MagicStudioBox artifacts with SHA-256 hashes and
 points to the overnight Merkle receipt and tamper-test result. The operator/agent
 conversation is represented through status files, handoff notes, hashes,
 receipts, and Git commits; raw private chat text and secrets are not published.
+
+Judge-facing figures are repeatable FCG/FCO artifacts. Rebuild the perturbation
+star chart with:
+
+```bash
+npm run build:figures
+```
+
+The figure receipt is written to
+`data/figures/fcg_perturbation_star_chart.receipt.json`.
 
 ## Convoke
 
