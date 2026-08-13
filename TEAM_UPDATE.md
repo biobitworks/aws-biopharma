@@ -15,6 +15,7 @@ Use this for the AWS Biopharma Hack Day workstream.
 - Convoke Bio MCP configured in `.mcp.json`.
 - Bright Data Web MCP configured in `.mcp.json`.
 - OpenAI Strands smoke agent available with `npm run agent:openai`.
+- OpenAI red-team model matrix available with `npm run redteam:openai`.
 - Convoke sign-in URL:
   `https://platform.convoke.bio/sign-in?redirect_url=https%3A%2F%2Fplatform.convoke.bio%2F`
 - Local dashboard:
@@ -28,6 +29,7 @@ Use this for the AWS Biopharma Hack Day workstream.
 cd /Users/byron/projects/active/aws-biopharma
 npm install
 npm run agent:openai
+npm run redteam:openai
 npm run status:brightdata
 npm run build:figures
 npm run build:release
@@ -59,3 +61,17 @@ npm run serve
 4. Data/evidence owner: choose one tiny public evidence slice.
 5. Pitch owner: keep claims to reproducible workflow/evidence custody, not
    clinical efficacy.
+
+## Reviewer Shortcut
+
+For a quick dashboard-only review:
+
+```bash
+cd /Users/byron/projects/active/aws-biopharma
+npm install
+npm run pull:data
+npm run serve
+```
+
+Open `http://127.0.0.1:8765`. The current OpenAI red-team receipt reports no
+dashboard blockers; Bright Data is optional and currently shown as not visible.

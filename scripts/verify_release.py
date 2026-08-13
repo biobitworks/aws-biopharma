@@ -34,6 +34,8 @@ CLAIM_POLICY_ARTIFACTS = {
     "HACKDAY_STATUS.md",
     "README.md",
     "TEAM_UPDATE.md",
+    "data/dashboard_snapshot.json",
+    "data/openai_redteam_status.json",
     "scripts/build_release.py",
     "scripts/verify_release.py",
     "custody/verify-release.py",

@@ -19,6 +19,8 @@
 - Data puller exists at `scripts/pull_data.py`.
 - OpenAI agent status is written to `data/openai_agent_status.json` and
   mirrored into dashboard data after `npm run pull:data`.
+- OpenAI red-team status is written to `data/openai_redteam_status.json` and
+  mirrored into dashboard data after `npm run pull:data`.
 - Bright Data status is written to `data/brightdata_status.json` and mirrored
   into dashboard data after `npm run pull:data`.
 - MagicStudioBox overnight outputs are included under `data/magicstudiobox/`.
@@ -35,6 +37,7 @@
 cd /Users/byron/projects/active/aws-biopharma
 npm install
 npm run agent:openai
+npm run redteam:openai
 npm run status:brightdata
 npm run build:figures
 npm run build:release
@@ -57,8 +60,11 @@ http://127.0.0.1:8765
 - AWS resources: none created by this scaffold.
 - Bright Data: MCP server configured with `@brightdata/mcp@2.6.0`; token
   visibility depends on shell or `.env`. Status check does not spend credits.
-- OpenAI: `OPENAI_API_KEY` is present in the current environment; Strands uses
-  it through `OpenAIModel`, and only status/output metadata is written.
+- OpenAI: Strands smoke and red-team scripts use local environment / `.env`
+  credentials. Key values are not written to committed artifacts.
+- OpenAI red-team: latest committed model matrix ran 27 reviewer jobs across
+  available OpenAI models and reported zero blockers for teammate dashboard
+  review.
 
 ## Licensing / Redistribution Boundary
 

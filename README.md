@@ -24,6 +24,17 @@ This project is the AWS Biopharma Hack Day workspace.
 
 ## Run
 
+Quick teammate review path:
+
+```bash
+cd /Users/byron/projects/active/aws-biopharma
+npm install
+npm run pull:data
+npm run serve
+```
+
+Full local refresh path:
+
 ```bash
 cd /Users/byron/projects/active/aws-biopharma
 python3 -m venv .venv
@@ -31,6 +42,7 @@ source .venv/bin/activate
 pip install -e ".[dev]"
 npm install
 npm run agent:openai
+npm run redteam:openai
 npm run status:brightdata
 npm run build:figures
 npm run build:release
@@ -117,15 +129,18 @@ CONVOKE_MCP_TOKEN=...
 
 ## OpenAI
 
-The local Strands smoke path uses `OPENAI_API_KEY` from the shell environment
-or `.env` without writing the key to disk:
+The local Strands smoke and red-team paths use `OPENAI_API_KEY` from the shell
+environment or `.env` without writing the key value to committed artifacts:
 
 ```bash
 npm run agent:openai
+npm run redteam:openai
 npm run pull:data
 ```
 
 Set `OPENAI_MODEL` to override the default `gpt-4o-mini`.
+Set `OPENAI_REDTEAM_MODELS` to a comma-separated model list to override the
+default red-team model matrix.
 
 ## Bright Data
 
@@ -140,7 +155,8 @@ BRIGHTDATA_TOKEN
 BRIGHT_DATA_TOKEN
 ```
 
-Run the status check without spending credits:
+Bright Data is optional for this teammate review path. Run the status check
+without spending credits:
 
 ```bash
 npm run status:brightdata
