@@ -6,8 +6,8 @@ This folder is the active AWS Biopharma Hack Day workspace:
 /Users/byron/projects/active/aws-biopharma
 ```
 
-Do not use the older BioCustody, StateShift, Hydra, or inbox package as the
-active work surface unless a task explicitly asks to import a specific artifact.
+Do not use the older BioCustody, StateShift, or inbox package as the active work
+surface unless a task explicitly asks to import a specific artifact.
 
 ## Priority
 

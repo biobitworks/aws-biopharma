@@ -1,11 +1,11 @@
 {
   "schema": "aws-biopharma.dashboard.v1",
-  "generated_at": "2026-08-13T18:04:20.893169+00:00",
+  "generated_at": "2026-08-13T19:31:57.819375+00:00",
   "project": {
     "name": "AWS Biopharma Hack Day",
     "path": "/Users/byron/projects/active/aws-biopharma",
     "boundaries": [
-      "Separate from BioCustody, Bio-Delta-G, StateShift, and Hydra.",
+      "Standalone AWS Biopharma workspace.",
       "No AWS resources created by the pull script.",
       "No paid provider APIs called by the pull script."
     ]
@@ -17,10 +17,6 @@
     "install_commands": [
       "npm install @strands-agents/sdk",
       "pip install strands-agents",
-      "pip install strands-agents-evals",
-      "pip install strands-agents-sops",
-      "pip install strands-agents-spraay",
-      "pip install strands-agents-tools",
       "uvx strands-agents-mcp-server"
     ],
     "mcp_config": {
@@ -105,13 +101,6 @@
         "status": "ok",
         "bytes": 122103,
         "error": null
-      },
-      {
-        "key": "llms_full",
-        "url": "https://strandsagents.com/llms-full.txt",
-        "status": "ok",
-        "bytes": 2615484,
-        "error": null
       }
     ]
   },
@@ -173,7 +162,36 @@
     ]
   },
   "integrations": {
+    "openai_agent": {
+      "schema": "aws-biopharma.openai-agent-status.v1",
+      "generated_at": "2026-08-13T18:14:10.225Z",
+      "status": "pass",
+      "provider": "openai",
+      "model_id": "gpt-4o-mini",
+      "api_key_present": true,
+      "stop_reason": "endTurn",
+      "output": "OpenAI provides advanced language models that can assist in data analysis, natural language processing, and generating insights from biopharma-related datasets in the AWS Biopharma demo."
+    },
+    "bright_data": {
+      "schema": "aws-biopharma.brightdata-status.v1",
+      "generated_at": "2026-08-13T18:15:10.100Z",
+      "provider": "brightdata",
+      "status": "token_not_visible",
+      "package": "@brightdata/mcp",
+      "package_version": "2.6.0",
+      "mcp_server": "bright-data",
+      "token_present": false,
+      "token_env_name": null,
+      "token_length": 0,
+      "groups": "code",
+      "note": "Bright Data MCP is configured, but no token alias is visible in this shell or .env."
+    },
     "env": [
+      {
+        "name": "OPENAI_API_KEY",
+        "present": true,
+        "length": 164
+      },
       {
         "name": "AWS_PROFILE",
         "present": false,
@@ -209,6 +227,187 @@
         "present": false,
         "length": 0
       }
+    ]
+  },
+  "overnight": {
+    "status": "included_local_copy",
+    "boundary": "MagicStudioBox overnight outputs are included as bounded local artifacts with hashes. Provider/source terms still govern redistribution and claims.",
+    "artifact_count": 8,
+    "artifacts": [
+      {
+        "path": "data/magicstudiobox/runs/primary/repurposing_evidence_table.csv",
+        "exists": true,
+        "bytes": 3501,
+        "modified_at": "2026-08-13T15:18:36+00:00",
+        "sha256": "cd21a99e63dafa26796e1961f5d3c05c43aa3e7ca369526402e2948742903fb1",
+        "kind": "csv",
+        "rows": 10,
+        "columns": [
+          "Candidate",
+          "Phenotype opposition",
+          "Reference-state result",
+          "Structural similarity",
+          "Target similarity",
+          "Mechanism similarity",
+          "Related-drug clinical progress",
+          "Known relationship benchmark",
+          "Provenance completeness",
+          "Claim ceiling"
+        ]
+      },
+      {
+        "path": "data/magicstudiobox/runs/primary/clinical_progress.csv",
+        "exists": true,
+        "bytes": 17899,
+        "modified_at": "2026-08-13T15:18:36+00:00",
+        "sha256": "d7f61ef9e116ac037a0d50808954b6bf2242e3947d233f0c9916ee2fa87f0301",
+        "kind": "csv",
+        "rows": 50,
+        "columns": [
+          "drug",
+          "disease_indication",
+          "nct_id",
+          "intervention_name",
+          "phase",
+          "recruitment_status",
+          "study_type",
+          "target_mechanism_relationship",
+          "comparator_relationship",
+          "retrieval_timestamp"
+        ]
+      },
+      {
+        "path": "data/magicstudiobox/runs/primary/candidate_ranking.csv",
+        "exists": true,
+        "bytes": 20952,
+        "modified_at": "2026-08-13T15:18:33+00:00",
+        "sha256": "e93d3ce7526049c8904e36e6e1aeefc2558c38b3032c8c348342390d8cf30b51",
+        "kind": "csv",
+        "rows": 50,
+        "columns": [
+          "candidate",
+          "broad_sample",
+          "pert_iname",
+          "target",
+          "target_list",
+          "smiles",
+          "target_match",
+          "target_list_match",
+          "candidate_distance",
+          "candidate_distance2"
+        ]
+      },
+      {
+        "path": "data/magicstudiobox/kaggle_output/evidence_table_draft.csv",
+        "exists": true,
+        "bytes": 4012,
+        "modified_at": "2026-08-13T14:17:35+00:00",
+        "sha256": "79efbedeec7fe5e441ba28c877fcf3eb16a9cca7771bef93d881a0c5b05e6b7b",
+        "kind": "csv",
+        "rows": 10,
+        "columns": [
+          "candidate",
+          "pert_iname",
+          "broad_sample",
+          "target",
+          "target_list",
+          "pathway",
+          "smiles",
+          "restoration_score",
+          "plates",
+          "wells"
+        ]
+      },
+      {
+        "path": "data/magicstudiobox/kaggle_output/cpjump1_best_ranking.csv",
+        "exists": true,
+        "bytes": 18090,
+        "modified_at": "2026-08-13T14:17:32+00:00",
+        "sha256": "3b2705d81785d8053a4dbbce78d561468550f0213e6b7f6808bf09815048fca3",
+        "kind": "csv",
+        "rows": 50,
+        "columns": [
+          "candidate",
+          "broad_sample",
+          "pert_iname",
+          "target",
+          "target_list",
+          "smiles",
+          "target_match",
+          "target_list_match",
+          "candidate_distance",
+          "candidate_distance2"
+        ]
+      },
+      {
+        "path": "data/magicstudiobox/runs/primary/merkle_receipt.json",
+        "exists": true,
+        "bytes": 581,
+        "modified_at": "2026-08-13T15:18:36+00:00",
+        "sha256": "aa333f29dd45ab3f9b5eba2c4cbe10edafeaffedbc6f3a447281591fbd0d84b7",
+        "kind": "json",
+        "json_keys": [
+          "digests",
+          "merkle_root"
+        ]
+      },
+      {
+        "path": "data/magicstudiobox/runs/primary/tamper_test.json",
+        "exists": true,
+        "bytes": 425,
+        "modified_at": "2026-08-13T15:18:36+00:00",
+        "sha256": "1732f154fa660a4504d1b34bcbd851286a904a92e6657057e64b80beb1cb0c55",
+        "kind": "json",
+        "json_keys": [
+          "after",
+          "before",
+          "canonical_run_modified",
+          "changed_artifact",
+          "pass",
+          "schema"
+        ]
+      },
+      {
+        "path": "data/magicstudiobox/deliverables/FINAL_METRICS.json",
+        "exists": true,
+        "bytes": 342,
+        "modified_at": "2026-08-13T15:18:36+00:00",
+        "sha256": "8721cb2b30ff794771d625411ab8b02298fe878dd4a97f63ec96bfc1dd8f4444",
+        "kind": "json",
+        "json_keys": [
+          "claim_ceiling",
+          "clinical_trial_rows",
+          "custody_verified",
+          "known_pair_rank",
+          "phenotype_opposition",
+          "reciprocal_rank",
+          "tamper_test_pass",
+          "top_candidate",
+          "top_candidate_id"
+        ]
+      }
+    ]
+  },
+  "custody": {
+    "schema": "aws-biopharma.custody-design.v1",
+    "claim_ceiling": "REPURPOSING_HYPOTHESIS / reproducible evidence workflow only",
+    "conversation_policy": "Agent conversation is represented by status files, handoff notes, and Git commits. Raw private chat text and secrets are not published.",
+    "chain": [
+      "public/problem-source snapshot",
+      "tool/integration status snapshot",
+      "MagicStudioBox overnight artifact copy",
+      "artifact SHA-256 hashes",
+      "Merkle receipt from overnight run",
+      "tamper-test result",
+      "dashboard rendering with claim boundary",
+      "Git commit and GitHub remote for reproducibility"
+    ],
+    "receipt_paths": [
+      "data/magicstudiobox/runs/primary/merkle_receipt.json",
+      "data/magicstudiobox/runs/primary/tamper_test.json",
+      "data/magicstudiobox/deliverables/FINAL_METRICS.json",
+      "HACKDAY_STATUS.md",
+      "TEAM_UPDATE.md"
     ]
   }
 }

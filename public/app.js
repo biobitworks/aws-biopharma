@@ -45,6 +45,127 @@ function renderIntegrations(env) {
   });
 }
 
+function renderOpenAIAgent(status) {
+  const target = document.getElementById("openaiAgent");
+  target.innerHTML = "";
+  if (!status) {
+    const p = document.createElement("p");
+    p.textContent = "Not run yet. Use npm run agent:openai, then npm run pull:data.";
+    target.appendChild(p);
+    return;
+  }
+  [
+    ["Status", status.status],
+    ["Provider", status.provider],
+    ["Model", status.model_id],
+    ["Key", status.api_key_present ? "present" : "not set"],
+    ["Generated", new Date(status.generated_at).toLocaleString()],
+  ].forEach(([label, value]) => {
+    const row = document.createElement("div");
+    row.className = "kv";
+    const key = document.createElement("span");
+    key.textContent = label;
+    const val = document.createElement("span");
+    val.textContent = value || "";
+    row.append(key, val);
+    target.appendChild(row);
+  });
+  const output = document.createElement("p");
+  output.className = "agent-output";
+  output.textContent = status.output || status.note || status.error || "";
+  target.appendChild(output);
+}
+
+function renderBrightData(status) {
+  const target = document.getElementById("brightData");
+  target.innerHTML = "";
+  if (!status) {
+    const p = document.createElement("p");
+    p.textContent = "Not checked yet. Use npm run status:brightdata, then npm run pull:data.";
+    target.appendChild(p);
+    return;
+  }
+  [
+    ["Status", status.status],
+    ["Package", `${status.package || ""} ${status.package_version || ""}`.trim()],
+    ["MCP server", status.mcp_server],
+    ["Token", status.token_present ? `${status.token_env_name} present (${status.token_length})` : "not visible"],
+    ["Groups", status.groups],
+    ["Checked", new Date(status.generated_at).toLocaleString()],
+  ].forEach(([label, value]) => {
+    const row = document.createElement("div");
+    row.className = "kv";
+    const key = document.createElement("span");
+    key.textContent = label;
+    const val = document.createElement("span");
+    val.textContent = value || "";
+    row.append(key, val);
+    target.appendChild(row);
+  });
+  const note = document.createElement("p");
+  note.className = "agent-output";
+  note.textContent = status.note || "";
+  target.appendChild(note);
+}
+
+function renderOvernightData(overnight) {
+  const target = document.getElementById("overnightData");
+  target.innerHTML = "";
+  if (!overnight) return;
+  const summary = document.createElement("p");
+  summary.className = "artifact-boundary";
+  summary.textContent = `${overnight.status}: ${overnight.boundary}`;
+  target.appendChild(summary);
+  overnight.artifacts
+    .filter((artifact) => artifact.exists)
+    .forEach((artifact) => {
+      const row = document.createElement("article");
+      row.className = "artifact-row";
+      const path = document.createElement("strong");
+      path.textContent = artifact.path;
+      const meta = document.createElement("span");
+      const rows = artifact.rows === undefined ? artifact.kind : `${artifact.rows} rows`;
+      meta.textContent = `${rows}, ${artifact.bytes} bytes, sha256 ${artifact.sha256.slice(0, 12)}`;
+      const cols = document.createElement("p");
+      cols.textContent = artifact.columns ? artifact.columns.join(", ") : (artifact.json_keys || []).join(", ");
+      row.append(path, meta, cols);
+      target.appendChild(row);
+    });
+}
+
+function renderCustody(custody) {
+  const target = document.getElementById("custodyDesign");
+  target.innerHTML = "";
+  if (!custody) return;
+
+  [
+    ["Claim ceiling", custody.claim_ceiling],
+    ["Conversation policy", custody.conversation_policy],
+  ].forEach(([label, value]) => {
+    const row = document.createElement("div");
+    row.className = "kv";
+    const key = document.createElement("span");
+    key.textContent = label;
+    const val = document.createElement("span");
+    val.textContent = value || "";
+    row.append(key, val);
+    target.appendChild(row);
+  });
+
+  const list = document.createElement("ol");
+  custody.chain.forEach((step) => {
+    const li = document.createElement("li");
+    li.textContent = step;
+    list.appendChild(li);
+  });
+  target.appendChild(list);
+
+  const receipts = document.createElement("p");
+  receipts.className = "artifact-boundary";
+  receipts.textContent = `Receipts: ${custody.receipt_paths.join(", ")}`;
+  target.appendChild(receipts);
+}
+
 function renderProblems(snapshot) {
   const fits = new Map(snapshot.biopharma.candidate_lanes.map((lane) => [lane.title, lane.fit]));
   const target = document.getElementById("problemStatements");
@@ -100,10 +221,13 @@ loadSnapshot()
     renderBoundaries(snapshot.project.boundaries);
     renderCommands(snapshot.strands.install_commands);
     renderIntegrations(snapshot.integrations.env);
+    renderOpenAIAgent(snapshot.integrations.openai_agent);
+    renderBrightData(snapshot.integrations.bright_data);
+    renderOvernightData(snapshot.overnight);
+    renderCustody(snapshot.custody);
     renderProblems(snapshot);
     renderDocs(snapshot.strands.selected_docs);
   })
   .catch((error) => {
     document.getElementById("generatedAt").textContent = error.message;
   });
-

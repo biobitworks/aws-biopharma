@@ -15,16 +15,22 @@ artifact.
 - Strands SDK installed with `npm install @strands-agents/sdk`.
 - Strands MCP configured in `.mcp.json`.
 - Convoke Bio MCP configured in `.mcp.json`.
+- Bright Data Web MCP configured in `.mcp.json`.
+- OpenAI Strands smoke agent available with `npm run agent:openai`.
 - Convoke sign-in URL:
   `https://platform.convoke.bio/sign-in?redirect_url=https%3A%2F%2Fplatform.convoke.bio%2F`
 - Local dashboard:
   `http://127.0.0.1:8765`
+- MagicStudioBox overnight data is included under `data/magicstudiobox/`.
+- Chain-of-custody design is in `CHAIN_OF_CUSTODY_DESIGN.md`.
 
 ## Local Run
 
 ```bash
 cd /Users/byron/projects/active/aws-biopharma
 npm install
+npm run agent:openai
+npm run status:brightdata
 npm run pull:data
 npm run serve
 ```
@@ -37,6 +43,8 @@ npm run serve
 - Do not commit `.env` or tokens.
 - Treat Convoke, Bright Data, Muni, Rowan, OnePot, Boltz, and similar provider
   outputs as local-only/redacted until usage rights are verified.
+- Conversation custody is represented through status files, handoffs, hashes,
+  receipts, and Git commits; raw private chat text is not published.
 
 ## Immediate Assignments
 

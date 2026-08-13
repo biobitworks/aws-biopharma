@@ -1,0 +1,10 @@
+{
+  "schema": "aws-biopharma.openai-agent-status.v1",
+  "generated_at": "2026-08-13T18:14:10.225Z",
+  "status": "pass",
+  "provider": "openai",
+  "model_id": "gpt-4o-mini",
+  "api_key_present": true,
+  "stop_reason": "endTurn",
+  "output": "OpenAI provides advanced language models that can assist in data analysis, natural language processing, and generating insights from biopharma-related datasets in the AWS Biopharma demo."
+}

@@ -1,0 +1,49 @@
+# Chain Of Custody Design
+
+This demo uses a lightweight custody chain suitable for a one-day AWS
+Biopharma hack deliverable.
+
+## What Is Preserved
+
+1. Public/source snapshots used by the dashboard.
+2. Tool and integration status snapshots.
+3. MagicStudioBox overnight output files copied into this repo under
+   `data/magicstudiobox/`.
+4. SHA-256 hashes for dashboard-listed artifacts.
+5. The overnight Merkle receipt:
+   `data/magicstudiobox/runs/primary/merkle_receipt.json`.
+6. The overnight tamper test:
+   `data/magicstudiobox/runs/primary/tamper_test.json`.
+7. Status and handoff files:
+   `HACKDAY_STATUS.md`, `TEAM_UPDATE.md`, and
+   `data/magicstudiobox/deliverables/MAGICSTUDIOBOX_HANDOFF.md`.
+8. Git commits and the public GitHub remote.
+
+## Conversation Custody
+
+The agent/operator conversation is part of the provenance story, but raw chat
+text is not published as the public evidence object. Instead, public custody is
+represented by:
+
+- explicit status files;
+- handoff notes;
+- deterministic command outputs captured as JSON/CSV/Markdown artifacts;
+- source file hashes;
+- Git commits.
+
+Secrets, private chat context, tokens, and unrestricted provider output are not
+published.
+
+## Claim Boundary
+
+The supported claim is that the demo preserves a reproducible evidence workflow
+and bounded candidate/evidence outputs.
+
+Unsupported claims:
+
+- therapeutic efficacy;
+- clinical utility;
+- diagnosis;
+- treatment recommendation;
+- measured rescue;
+- biological rejuvenation.

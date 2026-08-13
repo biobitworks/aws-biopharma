@@ -84,6 +84,10 @@ main {
   gap: 16px;
 }
 
+.panel-wide {
+  grid-column: 1 / -1;
+}
+
 .panel,
 .lane-card,
 .doc-row {
@@ -145,6 +149,18 @@ code {
   text-align: right;
 }
 
+.agent-status {
+  display: grid;
+  gap: 10px;
+}
+
+.agent-output {
+  border-left: 3px solid var(--accent);
+  padding-left: 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 .section-band {
   margin-top: 28px;
 }
@@ -201,7 +217,8 @@ code {
   gap: 10px;
 }
 
-.doc-row {
+.doc-row,
+.artifact-row {
   display: grid;
   grid-template-columns: 220px 1fr auto;
   gap: 14px;
@@ -209,9 +226,28 @@ code {
   padding: 14px 16px;
 }
 
-.doc-row p {
+.doc-row p,
+.artifact-row p,
+.artifact-boundary {
   color: var(--muted);
   font-size: 13px;
+}
+
+.artifact-list {
+  display: grid;
+  gap: 10px;
+}
+
+.artifact-row {
+  grid-template-columns: minmax(260px, 1fr) auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfd;
+}
+
+.artifact-row p {
+  grid-column: 1 / -1;
+  overflow-wrap: anywhere;
 }
 
 .doc-row a {
@@ -253,4 +289,3 @@ code {
     text-align: left;
   }
 }
-

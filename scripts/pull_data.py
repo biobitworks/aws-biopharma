@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import hashlib
 import shutil
 import sys
 import urllib.error
@@ -23,8 +24,25 @@ PROBLEM_STATEMENTS = Path("/Users/byron/projects/inbox/Biopharma Hack Day Proble
 STRANDS_URLS = {
     "home": "https://strandsagents.com/",
     "llms": "https://strandsagents.com/llms.txt",
-    "llms_full": "https://strandsagents.com/llms-full.txt",
 }
+OPENAI_STATUS = LOCAL_DATA / "openai_agent_status.json"
+BRIGHTDATA_STATUS = LOCAL_DATA / "brightdata_status.json"
+BRIGHTDATA_ENV_NAMES = [
+    "BRIGHTDATA_API_KEY",
+    "BRIGHT_DATA_API_KEY",
+    "BRIGHTDATA_TOKEN",
+    "BRIGHT_DATA_TOKEN",
+]
+OVERNIGHT_ARTIFACTS = [
+    ROOT / "data/magicstudiobox/runs/primary/repurposing_evidence_table.csv",
+    ROOT / "data/magicstudiobox/runs/primary/clinical_progress.csv",
+    ROOT / "data/magicstudiobox/runs/primary/candidate_ranking.csv",
+    ROOT / "data/magicstudiobox/kaggle_output/evidence_table_draft.csv",
+    ROOT / "data/magicstudiobox/kaggle_output/cpjump1_best_ranking.csv",
+    ROOT / "data/magicstudiobox/runs/primary/merkle_receipt.json",
+    ROOT / "data/magicstudiobox/runs/primary/tamper_test.json",
+    ROOT / "data/magicstudiobox/deliverables/FINAL_METRICS.json",
+]
 
 
 @dataclass
@@ -155,6 +173,107 @@ def redact_env(names: Iterable[str]) -> list[dict[str, object]]:
     return values
 
 
+def read_json(path: Path) -> dict[str, object] | None:
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {
+            "status": "error",
+            "path": str(path),
+            "error": "Invalid JSON status file.",
+        }
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def summarize_artifact(path: Path) -> dict[str, object]:
+    if not path.exists():
+        return {"path": str(path), "exists": False}
+
+    summary: dict[str, object] = {
+        "path": str(path.relative_to(ROOT)),
+        "exists": True,
+        "bytes": path.stat().st_size,
+        "modified_at": datetime.fromtimestamp(path.stat().st_mtime, timezone.utc).isoformat(),
+        "sha256": sha256_file(path),
+        "kind": path.suffix.lstrip(".") or "file",
+    }
+
+    if path.suffix.lower() == ".csv":
+        lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+        header = lines[0].split(",") if lines else []
+        summary.update(
+            {
+                "rows": max(len(lines) - 1, 0),
+                "columns": header[:10],
+            }
+        )
+    elif path.suffix.lower() == ".json":
+        payload = read_json(path)
+        summary["json_keys"] = list(payload.keys())[:10] if isinstance(payload, dict) else []
+
+    return summary
+
+
+def summarize_csv(path: Path) -> dict[str, object]:
+    if not path.exists():
+        return {"path": str(path), "exists": False}
+    lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+    header = lines[0].split(",") if lines else []
+    return {
+        "path": str(path),
+        "exists": True,
+        "bytes": path.stat().st_size,
+        "modified_at": datetime.fromtimestamp(path.stat().st_mtime, timezone.utc).isoformat(),
+        "rows": max(len(lines) - 1, 0),
+        "columns": header[:10],
+    }
+
+
+def summarize_overnight_artifacts() -> dict[str, object]:
+    artifacts = [summarize_artifact(path) for path in OVERNIGHT_ARTIFACTS]
+    found = [artifact for artifact in artifacts if artifact.get("exists")]
+    return {
+        "status": "included_local_copy" if found else "not_found",
+        "boundary": "MagicStudioBox overnight outputs are included as bounded local artifacts with hashes. Provider/source terms still govern redistribution and claims.",
+        "artifact_count": len(found),
+        "artifacts": artifacts,
+    }
+
+
+def summarize_custody_design() -> dict[str, object]:
+    return {
+        "schema": "aws-biopharma.custody-design.v1",
+        "claim_ceiling": "REPURPOSING_HYPOTHESIS / reproducible evidence workflow only",
+        "conversation_policy": "Agent conversation is represented by status files, handoff notes, and Git commits. Raw private chat text and secrets are not published.",
+        "chain": [
+            "public/problem-source snapshot",
+            "tool/integration status snapshot",
+            "MagicStudioBox overnight artifact copy",
+            "artifact SHA-256 hashes",
+            "Merkle receipt from overnight run",
+            "tamper-test result",
+            "dashboard rendering with claim boundary",
+            "Git commit and GitHub remote for reproducibility",
+        ],
+        "receipt_paths": [
+            "data/magicstudiobox/runs/primary/merkle_receipt.json",
+            "data/magicstudiobox/runs/primary/tamper_test.json",
+            "data/magicstudiobox/deliverables/FINAL_METRICS.json",
+            "HACKDAY_STATUS.md",
+            "TEAM_UPDATE.md",
+        ],
+    }
+
+
 def main() -> int:
     LOCAL_DATA.mkdir(parents=True, exist_ok=True)
     PUBLIC_DATA.mkdir(parents=True, exist_ok=True)
@@ -201,7 +320,7 @@ def main() -> int:
             "name": "AWS Biopharma Hack Day",
             "path": str(ROOT),
             "boundaries": [
-                "Separate from BioCustody, Bio-Delta-G, StateShift, and Hydra.",
+                "Standalone AWS Biopharma workspace.",
                 "No AWS resources created by the pull script.",
                 "No paid provider APIs called by the pull script.",
             ],
@@ -250,18 +369,20 @@ def main() -> int:
             ],
         },
         "integrations": {
+            "openai_agent": read_json(OPENAI_STATUS),
+            "bright_data": read_json(BRIGHTDATA_STATUS),
             "env": redact_env(
                 [
+                    "OPENAI_API_KEY",
                     "AWS_PROFILE",
                     "AWS_REGION",
                     "CONVOKE_MCP_TOKEN",
-                    "BRIGHTDATA_API_KEY",
-                    "BRIGHT_DATA_API_KEY",
-                    "BRIGHTDATA_TOKEN",
-                    "BRIGHT_DATA_TOKEN",
+                    *BRIGHTDATA_ENV_NAMES,
                 ]
             )
         },
+        "overnight": summarize_overnight_artifacts(),
+        "custody": summarize_custody_design(),
     }
 
     out = LOCAL_DATA / "dashboard_snapshot.json"

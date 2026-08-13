@@ -8,6 +8,14 @@
     "convoke-bio": {
       "url": "https://mcp.convoke.bio/mcp",
       "description": "Convoke Bio remote MCP endpoint. Requires OAuth/Bearer auth from https://platform.convoke.bio/ before tools are visible."
+    },
+    "bright-data": {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "API_TOKEN=\"${BRIGHTDATA_API_KEY:-${BRIGHT_DATA_API_KEY:-${BRIGHTDATA_TOKEN:-${BRIGHT_DATA_TOKEN:-}}}}\" GROUPS=\"${BRIGHTDATA_GROUPS:-code}\" exec npx -y @brightdata/mcp@2.6.0"
+      ],
+      "description": "Bright Data Web MCP. Reads BRIGHTDATA_API_KEY, BRIGHT_DATA_API_KEY, BRIGHTDATA_TOKEN, or BRIGHT_DATA_TOKEN from the local environment."
     }
   }
 }

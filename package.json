@@ -5,10 +5,14 @@
   "description": "AWS Biopharma Hack Day dashboard and Strands setup",
   "license": "Apache-2.0",
   "scripts": {
+    "agent:openai": "node scripts/openai_agent_smoke.mjs",
+    "status:brightdata": "node scripts/brightdata_status.mjs",
     "pull:data": "python3 scripts/pull_data.py",
     "serve": "python3 -m http.server 8765 -d public"
   },
   "dependencies": {
-    "@strands-agents/sdk": "^1.13.0"
+    "@brightdata/mcp": "^2.6.0",
+    "@strands-agents/sdk": "^1.13.0",
+    "openai": "^6.49.0"
   }
 }
