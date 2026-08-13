@@ -1,0 +1,13 @@
+{
+  "artifact": "data/magicstudiobox/runs/primary/tamper_test.json",
+  "claim_ceiling": "CUSTODY_RECEIPT",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:ca8f080204bc4f0966443fc77f638d4272d644fa15995a37184f8879063ad365",
+  "fco_type": "tamper_test",
+  "license": "SOURCE_TERMS_APPLY",
+  "parents": [],
+  "payload_bytes": 425,
+  "payload_sha256": "sha256:1732f154fa660a4504d1b34bcbd851286a904a92e6657057e64b80beb1cb0c55",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

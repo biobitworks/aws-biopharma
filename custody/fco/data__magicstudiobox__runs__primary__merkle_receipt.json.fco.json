@@ -1,0 +1,13 @@
+{
+  "artifact": "data/magicstudiobox/runs/primary/merkle_receipt.json",
+  "claim_ceiling": "CUSTODY_RECEIPT",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:5c9a3a4fff1780059694002f7832db1ed3cd76ae0d2a56ac8704c9f0574a8493",
+  "fco_type": "custody_receipt",
+  "license": "SOURCE_TERMS_APPLY",
+  "parents": [],
+  "payload_bytes": 581,
+  "payload_sha256": "sha256:aa333f29dd45ab3f9b5eba2c4cbe10edafeaffedbc6f3a447281591fbd0d84b7",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

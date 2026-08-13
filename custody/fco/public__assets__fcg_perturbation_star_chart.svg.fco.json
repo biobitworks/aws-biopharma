@@ -1,0 +1,18 @@
+{
+  "artifact": "public/assets/fcg_perturbation_star_chart.svg",
+  "claim_ceiling": "REPRODUCIBLE_FIGURE",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:66decd6cd3164c794fb7adfa73600ab19843fa7d4c5ddd0fa9d53f842d291bfd",
+  "fco_type": "figure",
+  "license": "Apache-2.0",
+  "parents": [
+    "fco:f02efa8df79e5bde8f7c98c235b75986e3e6e468719a28aeacffd0d4d9aa7c32",
+    "fco:bde240184dca0ac5476879b33bb903b01fdca7fded14025f76f02f9edc512e76",
+    "fco:5c9a3a4fff1780059694002f7832db1ed3cd76ae0d2a56ac8704c9f0574a8493",
+    "fco:ca8f080204bc4f0966443fc77f638d4272d644fa15995a37184f8879063ad365"
+  ],
+  "payload_bytes": 6529,
+  "payload_sha256": "sha256:e23b2ae5d5f2a729d3cdffca556e48a5da7f362ac312cff71e6a88794c85cbdb",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

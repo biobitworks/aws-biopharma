@@ -1,0 +1,15 @@
+{
+  "artifact": "docs/KEY_MANAGEMENT.md",
+  "claim_ceiling": "PROJECT_POLICY",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:141f709e68f106593f2bc3116507717f940723c46e51f9ff155e41fb8bf65be8",
+  "fco_type": "project_governance_artifact",
+  "license": "Apache-2.0",
+  "parents": [
+    "fco:953fd132f6922ee81a36317af485123c99cbfad327e901684b03958d950fcd51"
+  ],
+  "payload_bytes": 1114,
+  "payload_sha256": "sha256:b6b723b46914e9ca8811ee81da34d2eb3a83f0902d1992ddfa8c506a42264d38",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

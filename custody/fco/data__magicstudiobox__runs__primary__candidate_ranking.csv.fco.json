@@ -1,0 +1,13 @@
+{
+  "artifact": "data/magicstudiobox/runs/primary/candidate_ranking.csv",
+  "claim_ceiling": "REPURPOSING_HYPOTHESIS",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:dc5222e5eff7aa9a3a85a9f0b7110d41f0e39768a44adc7bd5e406ac041a1cd9",
+  "fco_type": "candidate_ranking",
+  "license": "SOURCE_TERMS_APPLY",
+  "parents": [],
+  "payload_bytes": 20952,
+  "payload_sha256": "sha256:e93d3ce7526049c8904e36e6e1aeefc2558c38b3032c8c348342390d8cf30b51",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

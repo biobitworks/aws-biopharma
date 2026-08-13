@@ -32,6 +32,8 @@ npm install
 npm run agent:openai
 npm run status:brightdata
 npm run build:figures
+npm run build:release
+npm run verify:release
 npm run pull:data
 npm run serve
 ```
@@ -48,6 +50,8 @@ npm run serve
   receipts, and Git commits; raw private chat text is not published.
 - Figures are rebuilt from source artifacts with FCG/FCO receipts; do not edit
   judge-facing figures by hand.
+- Release custody is signed at the Merkle root. Public verification files live
+  under `custody/`; the private key remains local and ignored.
 
 ## Immediate Assignments
 

@@ -1,0 +1,13 @@
+{
+  "artifact": "data/magicstudiobox/deliverables/FINAL_METRICS.json",
+  "claim_ceiling": "REPURPOSING_HYPOTHESIS",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:bde240184dca0ac5476879b33bb903b01fdca7fded14025f76f02f9edc512e76",
+  "fco_type": "result_metrics",
+  "license": "SOURCE_TERMS_APPLY",
+  "parents": [],
+  "payload_bytes": 342,
+  "payload_sha256": "sha256:8721cb2b30ff794771d625411ab8b02298fe878dd4a97f63ec96bfc1dd8f4444",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

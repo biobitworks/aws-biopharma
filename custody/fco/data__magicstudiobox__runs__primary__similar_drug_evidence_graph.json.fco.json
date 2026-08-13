@@ -1,0 +1,13 @@
+{
+  "artifact": "data/magicstudiobox/runs/primary/similar_drug_evidence_graph.json",
+  "claim_ceiling": "REPURPOSING_HYPOTHESIS",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:f02efa8df79e5bde8f7c98c235b75986e3e6e468719a28aeacffd0d4d9aa7c32",
+  "fco_type": "evidence_graph",
+  "license": "SOURCE_TERMS_APPLY",
+  "parents": [],
+  "payload_bytes": 11331,
+  "payload_sha256": "sha256:561be3392cd6fcc9072de24f67a7792d12a64cde3c32226818a7800ce885cd25",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

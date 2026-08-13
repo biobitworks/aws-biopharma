@@ -26,6 +26,8 @@
   rendered in the dashboard snapshot.
 - FCG perturbation star chart is generated repeatably from committed artifacts
   with `npm run build:figures`.
+- Signed release-root custody is built with `npm run build:release` and checked
+  with `npm run verify:release`.
 
 ## Exact Demo Path
 
@@ -35,6 +37,8 @@ npm install
 npm run agent:openai
 npm run status:brightdata
 npm run build:figures
+npm run build:release
+npm run verify:release
 npm run pull:data
 npm run serve
 ```
@@ -81,6 +85,10 @@ http://127.0.0.1:8765
   workflow only`.
 - Figure receipt:
   `data/figures/fcg_perturbation_star_chart.receipt.json`.
+- Public release signature:
+  `custody/release-root.sig`.
+- Public verification command:
+  `python3 custody/verify-release.py`.
 
 ## Team Split
 

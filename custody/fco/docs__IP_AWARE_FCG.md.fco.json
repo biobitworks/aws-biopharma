@@ -1,0 +1,15 @@
+{
+  "artifact": "docs/IP_AWARE_FCG.md",
+  "claim_ceiling": "PROJECT_POLICY",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:061cb4ae338119fe35fd38310bb555a0d91895c6aa541219681215d2826f3be9",
+  "fco_type": "project_governance_artifact",
+  "license": "Apache-2.0",
+  "parents": [
+    "fco:69fc2f240dd31849e7d83eb10f6386c85937c0ba7b46d9d93f0f6065f568ff75"
+  ],
+  "payload_bytes": 1171,
+  "payload_sha256": "sha256:537b0c76f0b86f2b819877f9c8da1edc7fdec8760ce52a322cd12e1b02cfba9a",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

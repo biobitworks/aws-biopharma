@@ -1,0 +1,13 @@
+{
+  "artifact": "public/styles.css",
+  "claim_ceiling": "DEMO_UI",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:a57480967fce1cc41062c483eb73bedc504a6dfaedd5fa9833f7427013b97f2f",
+  "fco_type": "dashboard_ui",
+  "license": "Apache-2.0",
+  "parents": [],
+  "payload_bytes": 5157,
+  "payload_sha256": "sha256:937675320620857a1faa41118d3b4c58b7dd6f95f1b93c1bb41dbbf3949ae4af",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

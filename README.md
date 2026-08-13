@@ -33,6 +33,8 @@ npm install
 npm run agent:openai
 npm run status:brightdata
 npm run build:figures
+npm run build:release
+npm run verify:release
 npm run pull:data
 npm run serve
 ```
@@ -78,6 +80,26 @@ npm run build:figures
 
 The figure receipt is written to
 `data/figures/fcg_perturbation_star_chart.receipt.json`.
+
+## Signed Release Custody
+
+Build and verify the signed release root:
+
+```bash
+npm run build:release
+npm run verify:release
+```
+
+Public release custody files:
+
+- `custody/public-key.pem`
+- `custody/release-manifest.json`
+- `custody/release-root.txt`
+- `custody/release-root.sig`
+- `custody/verify-release.py`
+
+The private signing key stays local in `.custody-private/signing-key.pem` and is
+ignored by Git.
 
 ## Convoke
 

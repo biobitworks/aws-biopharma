@@ -1,0 +1,13 @@
+{
+  "artifact": "HACKDAY_STATUS.md",
+  "claim_ceiling": "PROJECT_STATUS",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:bd0c0138d55ac6615fee4aaea2efb06cd8468b51c64a91b11202d5586e770721",
+  "fco_type": "project_status",
+  "license": "Apache-2.0",
+  "parents": [],
+  "payload_bytes": 4607,
+  "payload_sha256": "sha256:f1b2f297c46a4de8a5447f3bc6516c4376ea7274dd840a6a9d8e00f4e5000e77",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

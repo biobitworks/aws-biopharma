@@ -36,6 +36,31 @@ Outputs:
 The receipt records the generator hash, source-file hashes, output figure hash,
 fixed layout rule, and claim ceiling. The SVG contains no volatile timestamp.
 
+## Signed Release Root
+
+The public release root is built with:
+
+```bash
+npm run build:release
+```
+
+This creates FCO leaves for governance docs, dashboard files, figure receipts,
+overnight outputs, Merkle/tamper receipts, and result metrics. It writes:
+
+- `custody/release-manifest.json`
+- `custody/release-root.txt`
+- `custody/release-root.sig`
+- `custody/public-key.pem`
+
+Verification:
+
+```bash
+npm run verify:release
+```
+
+The private key remains local in `.custody-private/signing-key.pem` and is not
+committed.
+
 ## Conversation Custody
 
 The agent/operator conversation is part of the provenance story, but raw chat

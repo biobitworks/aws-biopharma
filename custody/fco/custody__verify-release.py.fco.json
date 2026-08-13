@@ -1,0 +1,13 @@
+{
+  "artifact": "custody/verify-release.py",
+  "claim_ceiling": "CUSTODY_RECEIPT",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:a71680341c020a547b5294b695a7c9ebe5fce5f25590087c31f05126c81fb664",
+  "fco_type": "release_tool",
+  "license": "Apache-2.0",
+  "parents": [],
+  "payload_bytes": 219,
+  "payload_sha256": "sha256:ccbd335671911096cb95e33529564415aaa25bc5661d287fc79174096df8ea21",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}
