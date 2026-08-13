@@ -1,0 +1,66 @@
+{
+  "artifacts": [
+    {
+      "path": "biocustody-ledger/README.md",
+      "required": true,
+      "status": "pending_import"
+    },
+    {
+      "path": "biocustody-ledger/fcg.py",
+      "required": true,
+      "status": "pending_import"
+    },
+    {
+      "path": "biocustody-ledger/ingest.py",
+      "required": true,
+      "status": "pending_import"
+    },
+    {
+      "path": "biocustody-ledger/origin_digests.json",
+      "required": true,
+      "status": "pending_import"
+    },
+    {
+      "path": "biocustody-ledger/tamper_test.py",
+      "required": true,
+      "status": "pending_import"
+    },
+    {
+      "path": "biocustody-ledger/index.json",
+      "required": true,
+      "status": "pending_import"
+    },
+    {
+      "path": "biocustody-ledger/merkle_receipt.json",
+      "required": true,
+      "status": "pending_import"
+    },
+    {
+      "path": "biocustody-ledger/tamper_test.json",
+      "required": true,
+      "status": "pending_import"
+    },
+    {
+      "path": "biocustody-ledger/FTO_DESIGN.md",
+      "required": true,
+      "status": "pending_import"
+    },
+    {
+      "path": "biocustody-ledger/fto.py",
+      "required": true,
+      "status": "pending_import"
+    },
+    {
+      "path": "biocustody-ledger/ingest_fto.py",
+      "required": true,
+      "status": "pending_import"
+    },
+    {
+      "path": "biocustody-ledger/registry_digests.json",
+      "required": true,
+      "status": "pending_import"
+    }
+  ],
+  "policy": "Any present required ledger artifact must be included as an FCO in the signed release root.",
+  "schema": "aws-biopharma.ledger-artifact-status.v1"
+}

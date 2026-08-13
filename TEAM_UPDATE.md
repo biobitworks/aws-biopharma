@@ -52,6 +52,9 @@ npm run serve
   judge-facing figures by hand.
 - Release custody is signed at the Merkle root. Public verification files live
   under `custody/`; the private key remains local and ignored.
+- If the BioCustody/FTO ledger package is imported, copy it under
+  `biocustody-ledger/`, then run `npm run build:release` and
+  `npm run verify:release`; present files must be hashed and covered by FCOs.
 
 ## Immediate Assignments
 

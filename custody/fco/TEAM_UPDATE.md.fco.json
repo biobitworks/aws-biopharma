@@ -2,12 +2,12 @@
   "artifact": "TEAM_UPDATE.md",
   "claim_ceiling": "PROJECT_STATUS",
   "disclosure": "PUBLIC",
-  "fco_id": "fco:d925833c3dfc28024ae391d7a2d791e20041753617bc887f88b9f194e0024823",
+  "fco_id": "fco:6fe6f6d49fa998d64de1e8add0d76fa35540e7d868bb1ab192fda0c6914f445e",
   "fco_type": "team_handoff",
   "license": "Apache-2.0",
   "parents": [],
-  "payload_bytes": 2216,
-  "payload_sha256": "sha256:826fbbb716d159fd3e4b3a6bad2a594b660419badd955749689c031b006c0ef5",
+  "payload_bytes": 2421,
+  "payload_sha256": "sha256:175f2802a96ee2b195a3007c904c0d5c475941d8187658a40b97ba6bb45be8ce",
   "schema": "aws-biopharma.fco.v1",
   "signature_scope": "release_root"
 }

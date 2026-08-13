@@ -101,6 +101,17 @@ Public release custody files:
 The private signing key stays local in `.custody-private/signing-key.pem` and is
 ignored by Git.
 
+## BioCustody/FTO Ledger Import
+
+The teammate ledger package should be copied under `biocustody-ledger/`. The
+expected files are listed in `custody/required-ledger-artifacts.json` and
+documented in `docs/BIOCUSTODY_LEDGER_IMPORT_REQUIREMENTS.md`.
+
+When any expected file is present, `npm run build:release` records its SHA-256 in
+`custody/ledger-artifact-status.json`, creates an FCO leaf, includes it in the
+Merkle release root, and signs that root. `npm run verify:release` fails if a
+present ledger file is not hashed and included.
+
 ## Convoke
 
 Sign in here:

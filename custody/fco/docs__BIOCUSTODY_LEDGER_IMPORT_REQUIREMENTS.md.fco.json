@@ -1,0 +1,13 @@
+{
+  "artifact": "docs/BIOCUSTODY_LEDGER_IMPORT_REQUIREMENTS.md",
+  "claim_ceiling": "PROJECT_POLICY",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:dcb6fb09e34632d793255b2a1c3b00b5e9771d09438da49fc07584743776a2db",
+  "fco_type": "project_governance_artifact",
+  "license": "Apache-2.0",
+  "parents": [],
+  "payload_bytes": 1336,
+  "payload_sha256": "sha256:064303986bd9634b77c473a19bbb69e4dc59854ae2df11c8325d96d3e7b6451e",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

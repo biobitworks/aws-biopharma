@@ -1,0 +1,13 @@
+{
+  "artifact": "custody/ledger-artifact-status.json",
+  "claim_ceiling": "PROJECT_STATUS",
+  "disclosure": "PUBLIC",
+  "fco_id": "fco:57549377db5dd66a769948d5eb65939c01ff32244975d7a8019f825c378a86d9",
+  "fco_type": "ledger_import_status",
+  "license": "Apache-2.0",
+  "parents": [],
+  "payload_bytes": 1613,
+  "payload_sha256": "sha256:9bcc5de14dbede2461e535eb6003309c91a8d783fee4ea9b520180d8f86f68de",
+  "schema": "aws-biopharma.fco.v1",
+  "signature_scope": "release_root"
+}

@@ -1,0 +1,67 @@
+{
+  "schema": "aws-biopharma.required-ledger-artifacts.v1",
+  "root": "biocustody-ledger",
+  "policy": "Each present artifact must be SHA-256 hashed, wrapped as an FCO, included in the Merkle release root, and covered by the release signature.",
+  "artifacts": [
+    {
+      "path": "biocustody-ledger/README.md",
+      "lane": "science",
+      "required": true
+    },
+    {
+      "path": "biocustody-ledger/fcg.py",
+      "lane": "science",
+      "required": true
+    },
+    {
+      "path": "biocustody-ledger/ingest.py",
+      "lane": "science",
+      "required": true
+    },
+    {
+      "path": "biocustody-ledger/origin_digests.json",
+      "lane": "science",
+      "required": true
+    },
+    {
+      "path": "biocustody-ledger/tamper_test.py",
+      "lane": "science",
+      "required": true
+    },
+    {
+      "path": "biocustody-ledger/index.json",
+      "lane": "science",
+      "required": true
+    },
+    {
+      "path": "biocustody-ledger/merkle_receipt.json",
+      "lane": "science",
+      "required": true
+    },
+    {
+      "path": "biocustody-ledger/tamper_test.json",
+      "lane": "science",
+      "required": true
+    },
+    {
+      "path": "biocustody-ledger/FTO_DESIGN.md",
+      "lane": "fto",
+      "required": true
+    },
+    {
+      "path": "biocustody-ledger/fto.py",
+      "lane": "fto",
+      "required": true
+    },
+    {
+      "path": "biocustody-ledger/ingest_fto.py",
+      "lane": "fto",
+      "required": true
+    },
+    {
+      "path": "biocustody-ledger/registry_digests.json",
+      "lane": "fto",
+      "required": true
+    }
+  ]
+}

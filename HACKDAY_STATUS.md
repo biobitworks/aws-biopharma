@@ -28,6 +28,9 @@
   with `npm run build:figures`.
 - Signed release-root custody is built with `npm run build:release` and checked
   with `npm run verify:release`.
+- Teammate BioCustody/FTO ledger import contract exists in
+  `custody/required-ledger-artifacts.json`; present ledger files are hashed,
+  wrapped as FCO leaves, and checked by `npm run verify:release`.
 
 ## Exact Demo Path
 
@@ -89,6 +92,8 @@ http://127.0.0.1:8765
   `custody/release-root.sig`.
 - Public verification command:
   `python3 custody/verify-release.py`.
+- Ledger hash status:
+  `custody/ledger-artifact-status.json`.
 
 ## Team Split
 
