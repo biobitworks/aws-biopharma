@@ -26,6 +26,7 @@ STRANDS_URLS = {
     "llms": "https://strandsagents.com/llms.txt",
 }
 OPENAI_STATUS = LOCAL_DATA / "openai_agent_status.json"
+OPENAI_REDTEAM_STATUS = LOCAL_DATA / "openai_redteam_status.json"
 BRIGHTDATA_STATUS = LOCAL_DATA / "brightdata_status.json"
 BRIGHTDATA_ENV_NAMES = [
     "BRIGHTDATA_API_KEY",
@@ -418,6 +419,7 @@ def main() -> int:
         },
         "integrations": {
             "openai_agent": read_json(OPENAI_STATUS),
+            "openai_redteam": read_json(OPENAI_REDTEAM_STATUS),
             "bright_data": read_json(BRIGHTDATA_STATUS),
             "env": redact_env(
                 [

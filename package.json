@@ -6,6 +6,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "agent:openai": "node scripts/openai_agent_smoke.mjs",
+    "redteam:openai": "node scripts/openai_redteam_fanout.mjs",
     "build:figures": "python3 scripts/generate_figures.py",
     "build:release": "python3 scripts/build_release.py",
     "verify:release": "python3 scripts/verify_release.py",

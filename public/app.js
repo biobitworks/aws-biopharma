@@ -76,6 +76,70 @@ function renderOpenAIAgent(status) {
   target.appendChild(output);
 }
 
+function renderOpenAIRedTeam(status) {
+  const target = document.getElementById("openaiRedTeam");
+  target.innerHTML = "";
+  if (!status) {
+    const p = document.createElement("p");
+    p.textContent = "Not run yet. Use npm run redteam:openai, then npm run pull:data.";
+    target.appendChild(p);
+    return;
+  }
+
+  [
+    ["Status", status.status],
+    ["Provider", status.provider],
+    ["Model", status.model_id],
+    ["Reviewers", String(status.reviewer_count || 0)],
+    ["Generated", new Date(status.generated_at).toLocaleString()],
+  ].forEach(([label, value]) => {
+    const row = document.createElement("div");
+    row.className = "kv";
+    const key = document.createElement("span");
+    key.textContent = label;
+    const val = document.createElement("span");
+    val.textContent = value || "";
+    row.append(key, val);
+    target.appendChild(row);
+  });
+
+  const blockerList = document.createElement("ul");
+  blockerList.className = "redteam-blockers";
+  const blockers = status.blockers || [];
+  if (blockers.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "No blockers reported.";
+    blockerList.appendChild(li);
+  } else {
+    blockers.forEach((blocker) => {
+      const li = document.createElement("li");
+      li.textContent = blocker;
+      blockerList.appendChild(li);
+    });
+  }
+  target.appendChild(blockerList);
+
+  const reviewers = document.createElement("div");
+  reviewers.className = "redteam-reviewers";
+  (status.reviewers || []).forEach((reviewer) => {
+    const card = document.createElement("article");
+    card.className = "redteam-reviewer";
+    const title = document.createElement("h3");
+    title.textContent = `${reviewer.label}: ${reviewer.verdict}`;
+    const next = document.createElement("p");
+    next.textContent = reviewer.recommended_next_step || "No next step provided.";
+    card.append(title, next);
+    (reviewer.findings || []).slice(0, 3).forEach((finding) => {
+      const item = document.createElement("p");
+      item.className = "redteam-finding";
+      item.textContent = `${finding.severity}: ${finding.finding} Fix: ${finding.fix}`;
+      card.appendChild(item);
+    });
+    reviewers.appendChild(card);
+  });
+  target.appendChild(reviewers);
+}
+
 function renderBrightData(status) {
   const target = document.getElementById("brightData");
   target.innerHTML = "";
@@ -319,6 +383,7 @@ loadSnapshot()
     renderCommands(snapshot.strands.install_commands);
     renderIntegrations(snapshot.integrations.env);
     renderOpenAIAgent(snapshot.integrations.openai_agent);
+    renderOpenAIRedTeam(snapshot.integrations.openai_redteam);
     renderBrightData(snapshot.integrations.bright_data);
     renderEvidenceGraph(snapshot.evidence_graph);
     renderOvernightData(snapshot.overnight);

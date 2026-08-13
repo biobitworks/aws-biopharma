@@ -38,6 +38,7 @@ ARTIFACTS = [
     ("custody/verify-release.py", "release_tool", "CUSTODY_RECEIPT", "PUBLIC", "Apache-2.0"),
     ("public/assets/fcg_perturbation_star_chart.svg", "figure", "REPRODUCIBLE_FIGURE", "PUBLIC", "Apache-2.0"),
     ("data/figures/fcg_perturbation_star_chart.receipt.json", "figure_receipt", "REPRODUCIBLE_FIGURE", "PUBLIC", "Apache-2.0"),
+    ("data/openai_redteam_status.json", "redteam_receipt", "PROJECT_STATUS", "PUBLIC", "SOURCE_TERMS_APPLY"),
     ("data/dashboard_snapshot.json", "dashboard_data", "DEMO_DATA", "PUBLIC", "SOURCE_TERMS_APPLY"),
     ("data/magicstudiobox/deliverables/FINAL_METRICS.json", "result_metrics", "REPURPOSING_HYPOTHESIS", "PUBLIC", "SOURCE_TERMS_APPLY"),
     ("data/magicstudiobox/deliverables/REPURPOSING_EVIDENCE_TABLE.md", "evidence_table", "REPURPOSING_HYPOTHESIS", "PUBLIC", "SOURCE_TERMS_APPLY"),
@@ -65,6 +66,7 @@ PARENTS = {
     "data/dashboard_snapshot.json": [
         "data/figures/fcg_perturbation_star_chart.receipt.json",
         "data/magicstudiobox/deliverables/FINAL_METRICS.json",
+        "data/openai_redteam_status.json",
     ],
 }
 
