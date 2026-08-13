@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "strands-agents": {
+      "command": "uvx",
+      "args": ["strands-agents-mcp-server"],
+      "description": "Official Strands Agents MCP server for SDK docs and project assistance."
+    },
+    "convoke-bio": {
+      "url": "https://mcp.convoke.bio/mcp",
+      "description": "Convoke Bio remote MCP endpoint. Requires OAuth/Bearer auth from https://platform.convoke.bio/ before tools are visible."
+    }
+  }
+}

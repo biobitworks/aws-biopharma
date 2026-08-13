@@ -1,0 +1,214 @@
+{
+  "schema": "aws-biopharma.dashboard.v1",
+  "generated_at": "2026-08-13T18:04:20.893169+00:00",
+  "project": {
+    "name": "AWS Biopharma Hack Day",
+    "path": "/Users/byron/projects/active/aws-biopharma",
+    "boundaries": [
+      "Separate from BioCustody, Bio-Delta-G, StateShift, and Hydra.",
+      "No AWS resources created by the pull script.",
+      "No paid provider APIs called by the pull script."
+    ]
+  },
+  "strands": {
+    "site": "https://strandsagents.com/",
+    "title": "Strands Agents \u2014 Open Source AI Agent SDK for Python & TypeScript",
+    "summary": "Strands Agents is an open source SDK for building production agents with tools, MCP integration, model providers, guardrails, observability, and deployment paths.",
+    "install_commands": [
+      "npm install @strands-agents/sdk",
+      "pip install strands-agents",
+      "pip install strands-agents-evals",
+      "pip install strands-agents-sops",
+      "pip install strands-agents-spraay",
+      "pip install strands-agents-tools",
+      "uvx strands-agents-mcp-server"
+    ],
+    "mcp_config": {
+      "command": "uvx",
+      "args": [
+        "strands-agents-mcp-server"
+      ]
+    },
+    "selected_docs": [
+      {
+        "section": "Get Started",
+        "title": "Quickstart: Python",
+        "url": "https://strandsagents.com/docs/user-guide/quickstart/python/index.md",
+        "description": "Get an AI agent running in Python in under 5 minutes. Install the SDK, configure a model provider, and build your first agent."
+      },
+      {
+        "section": "Build",
+        "title": "Using MCP Tools",
+        "url": "https://strandsagents.com/docs/user-guide/concepts/tools/mcp-tools/index.md",
+        "description": "Connect AI agents to any MCP server for tool access. Strands agents integrate and invoke MCP tools without custom integration code."
+      },
+      {
+        "section": "Model Providers",
+        "title": "amazon-bedrock",
+        "url": "https://strandsagents.com/docs/user-guide/concepts/model-providers/amazon-bedrock/index.md",
+        "description": "Use Amazon Bedrock models in Strands agents. Configure AWS credentials, model settings, guardrails, prompt caching, and multi-modal input."
+      },
+      {
+        "section": "Deploy",
+        "title": "operating-agents-in-production",
+        "url": "https://strandsagents.com/docs/user-guide/deploy/operating-agents-in-production/index.md",
+        "description": "Deploy AI agents to production on AWS Lambda, EKS, Fargate, EC2, or Bedrock AgentCore. Monitoring, scaling, and operational best practices."
+      },
+      {
+        "section": "Amazon Bedrock AgentCore",
+        "title": "deploy_to_bedrock_agentcore",
+        "url": "https://strandsagents.com/docs/user-guide/deploy/deploy_to_bedrock_agentcore/index.md",
+        "description": "Deploy Strands agents to Amazon Bedrock AgentCore Runtime: a serverless, session-isolated platform that scales agents without managing servers."
+      },
+      {
+        "section": "Safety & Security",
+        "title": "responsible-ai",
+        "url": "https://strandsagents.com/docs/user-guide/safety-security/responsible-ai/index.md",
+        "description": "Build AI agents responsibly with Strands: least-privilege tool design, input validation, audit logging, and ethical deployment practices."
+      },
+      {
+        "section": "Safety & Security",
+        "title": "guardrails",
+        "url": "https://strandsagents.com/docs/user-guide/safety-security/guardrails/index.md",
+        "description": "Add safety guardrails to AI agents. Control tool permissions, validate outputs, and enforce responsible AI policies in production."
+      },
+      {
+        "section": "Observability & Debugging",
+        "title": "observability",
+        "url": "https://strandsagents.com/docs/user-guide/observability-evaluation/observability/index.md",
+        "description": "Monitor AI agents with OpenTelemetry traces, metrics, and logs. Debug agent behavior and measure performance in production."
+      },
+      {
+        "section": "Observability & Debugging",
+        "title": "metrics",
+        "url": "https://strandsagents.com/docs/user-guide/observability-evaluation/metrics/index.md",
+        "description": "Track agent performance metrics in Strands: token usage, latency, tool call counts, and event loop cycles, all available through AgentResult."
+      },
+      {
+        "section": "Tools",
+        "title": "Metrics",
+        "url": "https://strandsagents.com/docs/api/typescript/Metrics/index.md",
+        "description": ""
+      }
+    ],
+    "fetches": [
+      {
+        "key": "home",
+        "url": "https://strandsagents.com/",
+        "status": "ok",
+        "bytes": 263260,
+        "error": null
+      },
+      {
+        "key": "llms",
+        "url": "https://strandsagents.com/llms.txt",
+        "status": "ok",
+        "bytes": 122103,
+        "error": null
+      },
+      {
+        "key": "llms_full",
+        "url": "https://strandsagents.com/llms-full.txt",
+        "status": "ok",
+        "bytes": 2615484,
+        "error": null
+      }
+    ]
+  },
+  "biopharma": {
+    "problem_statement_source": "/Users/byron/projects/inbox/Biopharma Hack Day Problem Statements.md",
+    "problem_statements": [
+      {
+        "id": "1",
+        "title": "Running more efficient trials",
+        "description": "Most drugs fail in clinical trials. Learn from previous trials and identify patterns and strategies to design and run better trials in the future."
+      },
+      {
+        "id": "2",
+        "title": "Repurposing opportunities",
+        "description": "Many different drugs can hit similar targets but running trials for all drug-disease pairs is not practical. Can you identify opportunities for new applications of existing drug based on the progress of other similar drugs?"
+      },
+      {
+        "id": "3",
+        "title": "Treatment observability for patients",
+        "description": "Help patients who are looking for more treatments understand their options. Patients with serious or rare conditions will want to know what cutting edge treatments are available in a clinical trial or maybe approved soon."
+      },
+      {
+        "id": "4",
+        "title": "Claims Adjudication Simulator",
+        "description": "How might we build an agent that simulates the payer-side prior-authorization/claims adjudication process \u2014 reading a prescription and a plan's coverage policy to determine and explain an approve/deny decision in real time, versus today's slow manual review."
+      },
+      {
+        "id": "5",
+        "title": "Reducing Redundant Content Development at Scale",
+        "description": "Pharma content starts in Regulatory Affairs (white papers, labels, FDA/EMA submissions) and flows downstream to Medical Affairs, MSLs, and Sales \u2014 each re-deriving similar content from the same source, duplicating effort and risking inconsistent messaging. Build an AI tool that ingests source content once and automatically repackages it for each downstream audience (tone, depth, format) \u2014 while keeping every output traceable back to the single approved source."
+      }
+    ],
+    "candidate_lanes": [
+      {
+        "id": "trial-efficiency",
+        "title": "Running more efficient trials",
+        "fit": "Use Strands tools to retrieve prior trial records, normalize endpoints, and produce pattern summaries with traceable sources."
+      },
+      {
+        "id": "repurposing",
+        "title": "Repurposing opportunities",
+        "fit": "Use Bright Data or other retrieval tools to collect public drug/target/trial progress evidence, then rank opportunities with source custody."
+      },
+      {
+        "id": "patient-observability",
+        "title": "Treatment observability for patients",
+        "fit": "Build a patient-facing treatment option monitor that separates trial availability from medical advice."
+      },
+      {
+        "id": "claims-adjudication",
+        "title": "Claims Adjudication Simulator",
+        "fit": "Model payer policy reading as a guarded tool workflow with approve/deny rationale and citations."
+      },
+      {
+        "id": "regulated-content",
+        "title": "Reducing Redundant Content Development at Scale",
+        "fit": "Use Strands agents to transform approved source material into audience-specific outputs while preserving traceability."
+      }
+    ]
+  },
+  "integrations": {
+    "env": [
+      {
+        "name": "AWS_PROFILE",
+        "present": false,
+        "length": 0
+      },
+      {
+        "name": "AWS_REGION",
+        "present": false,
+        "length": 0
+      },
+      {
+        "name": "CONVOKE_MCP_TOKEN",
+        "present": false,
+        "length": 0
+      },
+      {
+        "name": "BRIGHTDATA_API_KEY",
+        "present": false,
+        "length": 0
+      },
+      {
+        "name": "BRIGHT_DATA_API_KEY",
+        "present": false,
+        "length": 0
+      },
+      {
+        "name": "BRIGHTDATA_TOKEN",
+        "present": false,
+        "length": 0
+      },
+      {
+        "name": "BRIGHT_DATA_TOKEN",
+        "present": false,
+        "length": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AWS Biopharma Hack Day Dashboard</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">AWS Biopharma Hack Day</p>
+        <h1>Strands Agent Setup Dashboard</h1>
+      </div>
+      <div class="status-pill" id="generatedAt">Loading data</div>
+    </header>
+
+    <main>
+      <section class="summary-grid" aria-label="Project summary">
+        <article class="panel">
+          <h2>Project Boundary</h2>
+          <ul id="boundaries"></ul>
+        </article>
+        <article class="panel">
+          <h2>Strands Setup</h2>
+          <p id="strandsSummary"></p>
+          <div id="commands" class="command-list"></div>
+        </article>
+        <article class="panel">
+          <h2>Integration State</h2>
+          <div id="integrationState" class="kv-list"></div>
+        </article>
+      </section>
+
+      <section class="section-band">
+        <div class="section-heading">
+          <p class="eyebrow">Problem Statements</p>
+          <h2>Hack Day Lanes</h2>
+        </div>
+        <div id="problemStatements" class="card-grid"></div>
+      </section>
+
+      <section class="section-band">
+        <div class="section-heading">
+          <p class="eyebrow">Strands</p>
+          <h2>Relevant Docs Pulled</h2>
+        </div>
+        <div id="docs" class="doc-list"></div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
